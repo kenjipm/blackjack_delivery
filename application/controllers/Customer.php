@@ -31,6 +31,7 @@ class Customer extends CI_Controller {
 		// Load View Templates
 		$this->load->view('Customer/order_item_list_template');
 		$this->load->view('Customer/order_item_detail_template');
+		$this->load->view('Customer/order_checkout_template');
 		
 		// Load Footer
 		$this->load->view('footer');
@@ -119,6 +120,70 @@ class Customer extends CI_Controller {
 		$result['item']['price'] = "150000";
 		$result['item']['price_str'] = "Rp 150.000";
 		$result['item']['stock'] = "0";
+		
+		header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+		header("Cache-Control: post-check=0, pre-check=0", false);
+		header("Pragma: no-cache");
+		header("Content-Type: application/json; charset=utf-8");
+		echo json_encode($result);
+	}
+	
+	public function load_checkout_item_detail()
+	{
+		$id = $this->input->post('id');
+		$quantity = $this->input->post('quantity');
+		
+		$result = array();
+		
+		$result['err'] = 0;
+		
+		$result['item'] = array();
+		$result['item']['id'] = $id;
+		$result['item']['image'] = "";
+		$result['item']['name'] = "Berrylicious, 3mg, 60ml";
+		$result['item']['quantity'] = $quantity;
+		$result['item']['price'] = "150000";
+		$result['item']['price_str'] = "Rp 150.000";
+		$result['item']['total'] = "300000";
+		$result['item']['total_str'] = "Rp 300.000";
+		
+		header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+		header("Cache-Control: post-check=0, pre-check=0", false);
+		header("Pragma: no-cache");
+		header("Content-Type: application/json; charset=utf-8");
+		echo json_encode($result);
+	}
+	
+	public function load_checkout_summary()
+	{
+		$items = $this->input->post('items');
+		
+		$result = array();
+		
+		$result['err'] = 0;
+		
+		$this->load->library('text_renderer');
+		$result['summary'] = array();
+		$result['summary']['subtotal'] = 0;
+		$result['summary']['items'] = array();
+		foreach($items as $i => $item)
+		{
+			$result['summary']['items'][$i] = array();
+			$result['summary']['items'][$i]['id'] = $item['id'];
+			$result['summary']['items'][$i]['image'] = "";
+			$result['summary']['items'][$i]['name'] = "Berrylicious, 3mg, 60ml";
+			$result['summary']['items'][$i]['quantity'] = $item['quantity'];
+			$result['summary']['items'][$i]['price'] = 150000;
+			$result['summary']['items'][$i]['price_str'] = "Rp 150.000";
+			$result['summary']['items'][$i]['total'] = 300000;
+			$result['summary']['items'][$i]['total_str'] = "Rp 300.000";
+			
+			$result['summary']['subtotal'] += 300000;
+		}
+		$result['summary']['free_ongkir'] = 20000;
+		
+		$result['summary']['subtotal_str'] = $this->text_renderer->to_rupiah($result['summary']['subtotal']);
+		$result['summary']['free_ongkir_str'] = $this->text_renderer->to_rupiah($result['summary']['free_ongkir']);
 		
 		header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
 		header("Cache-Control: post-check=0, pre-check=0", false);
