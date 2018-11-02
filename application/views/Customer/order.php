@@ -3,12 +3,14 @@
 		<div class="p-1 border rounded h-100 d-table col-12">
 			<div class="d-table-row row-fit">
 				<div class="d-table-cell">
-					<div class="input-group pb-1">
-						<input type="text" id="search_input" class="form-control"/>
-						<div class="input-group-append">
-							<button type="button" class="btn btn-default"><span class="fas fa-search"></span></button>
+					<nav class="navbar navbar-expand navbar-light bg-light">
+						<div class="input-group pb-1">
+							<input type="text" id="search_input" class="form-control"/>
+							<div class="input-group-append">
+								<button type="button" class="btn btn-default"><span class="fas fa-search"></span></button>
+							</div>
 						</div>
-					</div>
+					</nav>
 				</div>
 			</div>
 			<div class="d-table-row">
@@ -22,7 +24,9 @@
 			</div>
 			<div class="d-table-row row-fit">
 				<div class="d-table-cell align-bottom">
+				<nav class="navbar navbar-expand navbar-light bg-light">
 					<button type="button" class="btn btn-success w-100" id="btn_hitung">Hitung</button>
+				</nav>
 				</div>
 			</div>
 		</div>

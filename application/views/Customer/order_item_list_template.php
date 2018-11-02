@@ -16,7 +16,7 @@
 						<div class="input-group-prepend">
 							<button type="button" class="btn btn-success" name="button-minus-quantity"><span class="fas fa-minus" aria-hidden="true"></span></button>
 						</div>
-						<input type="text" class="form-control" name="item_quantity" value="0" readonly/>
+						<input type="text" class="form-control text-center" name="item_quantity" value="0" readonly/>
 						<div class="input-group-append">
 							<button type="button" class="btn btn-success input-group-append" name="button-add-quantity"><span class="fas fa-plus" aria-hidden="true"></span></button>
 						</div>

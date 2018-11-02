@@ -69,7 +69,9 @@
 			</div>
 			<div class="d-table-row row-fit">
 				<div class="d-table-cell align-bottom">
-					<button type="submit" class="btn btn-success w-100">Pesan via WhatsApp</button>
+					<nav class="navbar navbar-expand navbar-light bg-light">
+						<button type="submit" class="btn btn-success w-100">Pesan via WhatsApp</button>
+					</nav>
 				</div>
 			</div>
 		</div>
