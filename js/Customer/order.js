@@ -5,7 +5,6 @@ $(document).ready(function(){
 
 function bind_btn_hitung() {
 	$("#btn_hitung").on("click", function(){
-		scrollTo("#order_detail");
 		load_checkout();
 	});
 }
@@ -20,6 +19,7 @@ function load_item_list() {
 		},
 		success: function(result) {
 			if (result.err == 0) {
+				scrollTop();
 				$("#item_list").html("");
 				result.items.forEach(function(item){
 					var template = $("[name='item_template']").html();
@@ -36,6 +36,7 @@ function load_item_list() {
 					
 					element.find("[name='item_image'], [name='item_name'], [name='item_description_long'], [name='item_price_str']").on("click", function(){
 						scrollTo("#order_detail");
+						// scrollBottom();
 						load_item_detail(item.id);
 					});
 					
@@ -77,7 +78,10 @@ function load_item_detail(item_id) {
 				element.find("[name='item_name']").html(result.item.name);
 				element.find("[name='item_price_str']").html(result.item.price_str);
 				element.find("[name='item_description_long']").html(result.item.description_long);
-				
+	
+				element.find("[name='btn_back']").on("click", function(){
+					scrollTop();
+				});
 			} else {
 				
 			}
@@ -102,6 +106,7 @@ function load_checkout() {
 	});
 	
 	if (order_items.length > 0) {
+		scrollTo("#order_detail");
 		$.ajax({
 			type: "POST",
 			url: base_url + "/Customer/load_checkout_summary/",
@@ -136,13 +141,17 @@ function load_checkout() {
 					element.find("[name='subtotal_str']").html(result.summary.subtotal_str);
 					element.find("[name='free_ongkir']").val(result.summary.free_ongkir);
 					element.find("[name='free_ongkir_str']").html(result.summary.free_ongkir_str);
+	
+					element.find("[name='btn_back']").on("click", function(){
+						scrollTop();
+					});
 				} else {
 					
 				}
 			}
 		});
 	} else {
-		$("#order_detail").html("Silakan pilih barang yang mau dipesan terlebih dahulu");
+		alert("Silakan pilih barang yang mau dipesan terlebih dahulu");
 	}
 	
 }

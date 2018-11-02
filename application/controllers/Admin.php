@@ -41,6 +41,8 @@ class Admin extends CI_Controller {
 		// Load View Templates
 		$this->load->view('Admin/setting_item_list_template');
 		$this->load->view('Admin/setting_item_detail_template');
+		$this->load->view('Admin/setting_tambah_item_template');
+		$this->load->view('Admin/setting_atur_ongkir_template');
 		
 		// Load Footer
 		$this->load->view('footer');
@@ -131,6 +133,26 @@ class Admin extends CI_Controller {
 		$result['item']['description_long'] = "Lorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal amet";
 		$result['item']['price'] = "150000";
 		$result['item']['stock'] = "2";
+		
+		header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+		header("Cache-Control: post-check=0, pre-check=0", false);
+		header("Pragma: no-cache");
+		header("Content-Type: application/json; charset=utf-8");
+		echo json_encode($result);
+	}
+	
+	public function load_atur_ongkir()
+	{
+		$result = array();
+		
+		$result['err'] = 0;
+		
+		$result['ongkir'] = array();
+		$result['ongkir']['id'] = "1";
+		$result['ongkir']['min_belanja'] = "100000";
+		$result['ongkir']['free_ongkir'] = "10000";
+		$result['ongkir']['per_belanja'] = "100000";
+		$result['ongkir']['maks_free'] = "20000";
 		
 		header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
 		header("Cache-Control: post-check=0, pre-check=0", false);

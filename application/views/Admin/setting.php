@@ -1,6 +1,6 @@
 <div class="row h-100">
 	<div class="col-12 col-md-4 h-100">
-		<div class="p-1 border rounded h-100 d-table col-12">
+		<div class="p-1 border rounded h-100 d-table col-12" id="setting_main">
 			<div class="d-table-row row-fit">
 				<div class="d-table-cell">
 					<div class="row">
@@ -13,8 +13,8 @@
 												<span class="fas fa-list"></span>
 											</a>
 											<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuAdmin">
-												<a class="dropdown-item" href="#">Tambah Item</a>
-												<a class="dropdown-item" href="#">Setting</a>
+												<button id="btn_tambah_item" type="button" class="dropdown-item">Tambah Item</button>
+												<button id="btn_atur_ongkir" type="button" class="dropdown-item">Atur Ongkir</button>
 												<div class="dropdown-divider"></div>
 												<a class="dropdown-item" href="<?=site_url('Admin/Logout')?>">Logout</a>
 											</div>

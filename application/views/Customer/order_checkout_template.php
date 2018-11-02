@@ -70,7 +70,8 @@
 			<div class="d-table-row row-fit">
 				<div class="d-table-cell align-bottom">
 					<nav class="navbar navbar-expand navbar-light bg-light">
-						<button type="submit" class="btn btn-success w-100">Pesan via WhatsApp</button>
+						<button name="btn_order" type="submit" class="btn btn-success w-50">Pesan via WhatsApp</button>
+						<button name="btn_back" type="button" class="btn btn-default w-50">Kembali</button>
 					</nav>
 				</div>
 			</div>
