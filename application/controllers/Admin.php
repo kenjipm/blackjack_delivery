@@ -10,9 +10,9 @@ class Admin extends CI_Controller {
 	
 	public function authorize()
 	{
-		// if ($this->session->admin_id == null) {
-			// show_404();
-		// }
+		if ($this->session->admin_id == null) {
+			show_404();
+		}
 	}
 	
 	
@@ -79,37 +79,18 @@ class Admin extends CI_Controller {
 		
 		$result['err'] = 0;
 		
-		$result['items'] = array();
-		$result['items'][0] = array();
-		$result['items'][0]['id'] = 1;
-		$result['items'][0]['name'] = "Berrylicious, 3mg, 60ml";
-		$result['items'][0]['price'] = "150000";
-		$result['items'][0]['stock'] = "2";
-		$result['items'][1] = array();
-		$result['items'][1]['id'] = 2;
-		$result['items'][1]['name'] = "Bananalicious, 3mg, 60ml";
-		$result['items'][1]['price'] = "140000";
-		$result['items'][1]['stock'] = "2";
-		$result['items'][2] = array();
-		$result['items'][2]['id'] = 3;
-		$result['items'][2]['name'] = "Bananalicious, 3mg, 60ml";
-		$result['items'][2]['price'] = "140000";
-		$result['items'][2]['stock'] = "3";
-		$result['items'][3] = array();
-		$result['items'][3]['id'] = 4;
-		$result['items'][3]['name'] = "Bananalicious, 3mg, 60ml";
-		$result['items'][3]['price'] = "140000";
-		$result['items'][3]['stock'] = "3";
-		$result['items'][4] = array();
-		$result['items'][4]['id'] = 5;
-		$result['items'][4]['name'] = "Bananalicious, 3mg, 60ml";
-		$result['items'][4]['price'] = "140000";
-		$result['items'][4]['stock'] = "0";
-		$result['items'][5] = array();
-		$result['items'][5]['id'] = 6;
-		$result['items'][5]['name'] = "Bananalicious, 3mg, 60ml";
-		$result['items'][5]['price'] = "140000";
-		$result['items'][5]['stock'] = "0";
+		$this->load->model('item_model');
+		$items = $this->item_model->get_all();
+		
+		if ($items != null)
+		{
+			$result['items'] = $items;
+		}
+		else
+		{
+			// $result['err'] = 1;
+			$result['items'] = array();
+		}
 		
 		header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
 		header("Cache-Control: post-check=0, pre-check=0", false);
@@ -126,13 +107,18 @@ class Admin extends CI_Controller {
 		
 		$result['err'] = 0;
 		
-		$result['item'] = array();
-		$result['item']['id'] = $id;
-		$result['item']['image'] = "";
-		$result['item']['name'] = "Berrylicious, 3mg, 60ml";
-		$result['item']['description_long'] = "Lorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal amet";
-		$result['item']['price'] = "150000";
-		$result['item']['stock'] = "2";
+		$this->load->model('item_model');
+		$item = $this->item_model->get($id);
+		
+		if ($item != null)
+		{
+			$result['item'] = $item;
+		}
+		else
+		{
+			$result['err'] = 1;
+			$result['item'] = array();
+		}
 		
 		header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
 		header("Cache-Control: post-check=0, pre-check=0", false);
@@ -147,12 +133,18 @@ class Admin extends CI_Controller {
 		
 		$result['err'] = 0;
 		
-		$result['ongkir'] = array();
-		$result['ongkir']['id'] = "1";
-		$result['ongkir']['min_belanja'] = "100000";
-		$result['ongkir']['free_ongkir'] = "10000";
-		$result['ongkir']['per_belanja'] = "100000";
-		$result['ongkir']['maks_free'] = "20000";
+		$this->load->model('ongkir_setting_model');
+		$ongkir = $this->ongkir_setting_model->get_last();
+		
+		if ($ongkir != null)
+		{
+			$result['ongkir'] = $ongkir;
+		}
+		else
+		{
+			// $result['err'] = 1;
+			$result['ongkir'] = new ongkir_setting_model();
+		}
 		
 		header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
 		header("Cache-Control: post-check=0, pre-check=0", false);
@@ -165,9 +157,77 @@ class Admin extends CI_Controller {
 	/********************
 	    ACTIONS
 	 ********************/
-	 
+	
+	public function create_item_do()
+	{
+		$result['err'] = 0;
+			
+		$item_image_file = $this->input->post('item_image_file');
+		$item_description_long = $this->input->post('item_description_long');
+		$item_price = $this->input->post('item_price');
+		$item_stock = $this->input->post('item_stock');
+		$this->load->model('item_model');
+		$query_result = $this->item_model->insert($item);
+		
+		if (!$query_result)
+		{
+			$result['err'] = 1;
+		}
+		
+		header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+		header("Cache-Control: post-check=0, pre-check=0", false);
+		header("Pragma: no-cache");
+		header("Content-Type: application/json; charset=utf-8");
+		echo json_encode($result);
+	}
+	
+	public function update_item_do()
+	{
+		$result['err'] = 0;
+			
+		$item = $this->input->post('item');
+		$this->load->model('item_model');
+		$query_result = $this->item_model->update($item);
+		
+		if (!$query_result)
+		{
+			$result['err'] = 1;
+		}
+		
+		header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+		header("Cache-Control: post-check=0, pre-check=0", false);
+		header("Pragma: no-cache");
+		header("Content-Type: application/json; charset=utf-8");
+		echo json_encode($result);
+	}
+	
+	public function create_ongkir_setting_do()
+	{
+		$result['err'] = 0;
+		
+		$ongkir_setting = array();
+		$ongkir_setting['minimum_order'] = $this->input->post('minimum_order');
+		$ongkir_setting['free_value'] = $this->input->post('free_value');
+		$ongkir_setting['per_price'] = $this->input->post('per_price');
+		$ongkir_setting['maximum_free'] = $this->input->post('maximum_free');
+		
+		$this->load->model('ongkir_setting_model');
+		$query_result = $this->ongkir_setting_model->insert($ongkir_setting);
+		
+		if (!$query_result)
+		{
+			$result['err'] = 1;
+		}
+		
+		header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+		header("Cache-Control: post-check=0, pre-check=0", false);
+		header("Pragma: no-cache");
+		header("Content-Type: application/json; charset=utf-8");
+		echo json_encode($result);
+	}
+	
 	public function validate()
-	{redirect("admin");
+	{
 		if (isset($this->session->blocked_until)) // kalau gagal login 5x
 		{
 			if (time() <= $this->session->blocked_until)
@@ -183,20 +243,24 @@ class Admin extends CI_Controller {
 		$this->load->model('Admin_model');
 		$user = $this->Admin_model->get_from_login($username, $password);
 		
+		if ($user == null) // kalau baru create password
+		{
+			$this->Admin_model->create_password($username, $password);
+			$user = $this->Admin_model->get_from_login($username, $password);
+		}
+		
 		if ($user !== null)
 		{
 			$this->session->fail_count = 0;
-			if ($user->is_blocked())
-			{
-				redirect('Admin/Login?err=6');
-			}
-			
-			$id = $user->id;
-			$name = $user->name;
+			// if ($user->is_blocked())
+			// {
+				// redirect('Admin/Login?err=6');
+			// }
 			
 			$userdata = array(
-				'admin_id' => $id,
-				'name' => $name,
+				'admin_id' => $user->id,
+				'name' => $user->name,
+				'username' => $user->username,
 			);
 			
 			$this->session->set_userdata($userdata);

@@ -51,8 +51,8 @@ function load_item_list() {
 						if (cur_quantity < max_quantity) element.find("[name='item_quantity']").val(cur_quantity + 1);
 					});
 				});
-			} else {
-				
+			} else if (result.err == 1) {
+				alert('Server error');
 			}
 		}
 	});
@@ -82,8 +82,8 @@ function load_item_detail(item_id) {
 				element.find("[name='btn_back']").on("click", function(){
 					scrollTop();
 				});
-			} else {
-				
+			} else if (result.err == 1) {
+				alert('Server error');
 			}
 		}
 	});
@@ -142,16 +142,66 @@ function load_checkout() {
 					element.find("[name='free_ongkir']").val(result.summary.free_ongkir);
 					element.find("[name='free_ongkir_str']").html(result.summary.free_ongkir_str);
 	
+					element.find("[name='btn_order']").on("click", function(){
+						order_do(element);
+					});
+	
 					element.find("[name='btn_back']").on("click", function(){
 						scrollTop();
 					});
-				} else {
-					
+				} else if (result.err == 1) {
+					alert('Server error');
 				}
 			}
 		});
 	} else {
 		alert("Silakan pilih barang yang mau dipesan terlebih dahulu");
 	}
+}
+
+function order_do(element) {
+	var order_items = [];
+	$("#form_checkout[name='item']").each(function(i){
+		var item_quantity = parseInt($(this).find("[name=item_quantity]").val());
+		if (item_quantity > 0) {
+			var item_id = $(this).find("[name=item_id]").val();
+			order_items.push({
+				id: item_id,
+				quantity: item_quantity
+			});
+		}
+	});
+	var customer_name = $("#form_checkout[name='item']").find("[name=customer_name]").val();
+	var shipping_address = $("#form_checkout[name='item']").find("[name=shipping_address]").val();
+	var shipping_method = $("#form_checkout[name='item']").find("[name=shipping_method]").val();
 	
+	if (order_items.length > 0) {
+		$.ajax({
+			type: "POST",
+			url: base_url + "/Customer/order_do/",
+			data:
+			{
+				customer_name: customer_name,
+				shipping_address: shipping_address,
+				shipping_method: shipping_method,
+				items: order_items
+			},
+			success: function(result) {
+				if (result.err == 0) {
+					
+					send_to_whatsapp(whatsapp_message);
+					
+				} else if (result.err == 1) {
+					alert('Server error');
+				}
+			}
+		});
+	} else {
+		alert("Silakan pilih barang yang mau dipesan terlebih dahulu");
+	}
+}
+
+function send_to_whatsapp(message) {
+	$("#form_send_to_whatsapp[name=message]").val(message);
+	$("#form_send_to_whatsapp").submit();
 }

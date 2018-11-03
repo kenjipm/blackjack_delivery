@@ -7,6 +7,28 @@ defined('WHATSAPP_NUMBER') OR define('WHATSAPP_NUMBER', '6289610083002');
 
 /*
 |--------------------------------------------------------------------------
+| Application Settings
+|--------------------------------------------------------------------------
+*/
+
+// LIMITS
+defined('DESCRIPTION_CHAR_LIMIT') OR define('DESCRIPTION_CHAR_LIMIT', 50);
+defined('LAZYLOAD_ITEM_LIMIT') OR define('LAZYLOAD_ITEM_LIMIT', 10);
+
+/*
+|--------------------------------------------------------------------------
+| Table name
+|--------------------------------------------------------------------------
+*/
+defined('TABLE_ITEM') OR define('TABLE_ITEM', 'item');
+defined('TABLE_CUSTOMER_ORDER') OR define('TABLE_CUSTOMER_ORDER', 'customer_order');
+defined('TABLE_ORDER_ITEM') OR define('TABLE_ORDER_ITEM', 'order_item');
+defined('TABLE_ADMIN') OR define('TABLE_ADMIN', 'admin');
+defined('TABLE_ONGKIR_SETTING') OR define('TABLE_ONGKIR_SETTING', 'ongkir_setting');
+
+
+/*
+|--------------------------------------------------------------------------
 | Display Debug backtrace
 |--------------------------------------------------------------------------
 |

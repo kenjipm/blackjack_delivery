@@ -47,55 +47,26 @@ class Customer extends CI_Controller {
 		
 		$result['err'] = 0;
 		
-		$result['items'] = array();
-		$result['items'][0] = array();
-		$result['items'][0]['id'] = 1;
-		$result['items'][0]['image'] = "";
-		$result['items'][0]['name'] = "Berrylicious, 3mg, 60ml";
-		$result['items'][0]['description_long'] = "Lorem ipsum dolor sit amet";
-		$result['items'][0]['price'] = "150000";
-		$result['items'][0]['price_str'] = "Rp 150.000";
-		$result['items'][0]['stock'] = "2";
-		$result['items'][1] = array();
-		$result['items'][1]['id'] = 2;
-		$result['items'][1]['image'] = "";
-		$result['items'][1]['name'] = "Bananalicious, 3mg, 60ml";
-		$result['items'][1]['description_long'] = "Lorem ipsum dolor sit amet...";
-		$result['items'][1]['price'] = "140000";
-		$result['items'][1]['price_str'] = "Rp 140.000";
-		$result['items'][1]['stock'] = "2";
-		$result['items'][2] = array();
-		$result['items'][2]['id'] = 3;
-		$result['items'][2]['image'] = "";
-		$result['items'][2]['name'] = "Bananalicious, 3mg, 60ml";
-		$result['items'][2]['description_long'] = "Lorem ipsum dolor sit amet...";
-		$result['items'][2]['price'] = "140000";
-		$result['items'][2]['price_str'] = "Rp 140.000";
-		$result['items'][2]['stock'] = "3";
-		$result['items'][3] = array();
-		$result['items'][3]['id'] = 4;
-		$result['items'][3]['image'] = "";
-		$result['items'][3]['name'] = "Bananalicious, 3mg, 60ml";
-		$result['items'][3]['description_long'] = "Lorem ipsum dolor sit amet...";
-		$result['items'][3]['price'] = "140000";
-		$result['items'][3]['price_str'] = "Rp 140.000";
-		$result['items'][3]['stock'] = "3";
-		$result['items'][4] = array();
-		$result['items'][4]['id'] = 5;
-		$result['items'][4]['image'] = "";
-		$result['items'][4]['name'] = "Bananalicious, 3mg, 60ml";
-		$result['items'][4]['description_long'] = "Lorem ipsum dolor sit amet...";
-		$result['items'][4]['price'] = "140000";
-		$result['items'][4]['price_str'] = "Rp 140.000";
-		$result['items'][4]['stock'] = "0";
-		$result['items'][5] = array();
-		$result['items'][5]['id'] = 6;
-		$result['items'][5]['image'] = "";
-		$result['items'][5]['name'] = "Bananalicious, 3mg, 60ml";
-		$result['items'][5]['description_long'] = "Lorem ipsum dolor sit amet...";
-		$result['items'][5]['price'] = "140000";
-		$result['items'][5]['price_str'] = "Rp 140.000";
-		$result['items'][5]['stock'] = "0";
+		$this->load->model('item_model');
+		$items = $this->item_model->get_all();
+		
+		if ($items != null)
+		{
+			foreach ($items as $item)
+			{
+				$item->price_str = $this->text_renderer($item->price);
+				if (count($item->description_long) > DESCRIPTION_CHAR_LIMIT)
+				{
+					$item->description_long = substr($item->description_long, 0, DESCRIPTION_CHAR_LIMIT - 2)."...";					
+				}
+			}
+			$result['items'] = $items;
+		}
+		else
+		{
+			// $result['err'] = 1;
+			$result['items'] = array();
+		}
 		
 		header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
 		header("Cache-Control: post-check=0, pre-check=0", false);
@@ -112,40 +83,18 @@ class Customer extends CI_Controller {
 		
 		$result['err'] = 0;
 		
-		$result['item'] = array();
-		$result['item']['id'] = $id;
-		$result['item']['image'] = "";
-		$result['item']['name'] = "Berrylicious, 3mg, 60ml";
-		$result['item']['description_long'] = "Lorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal ametLorem ipsum dolor sit amet blablabla da ga apal amet";
-		$result['item']['price'] = "150000";
-		$result['item']['price_str'] = "Rp 150.000";
-		$result['item']['stock'] = "0";
+		$this->load->model('item_model');
+		$item = $this->item_model->get($id);
 		
-		header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
-		header("Cache-Control: post-check=0, pre-check=0", false);
-		header("Pragma: no-cache");
-		header("Content-Type: application/json; charset=utf-8");
-		echo json_encode($result);
-	}
-	
-	public function load_checkout_item_detail()
-	{
-		$id = $this->input->post('id');
-		$quantity = $this->input->post('quantity');
-		
-		$result = array();
-		
-		$result['err'] = 0;
-		
-		$result['item'] = array();
-		$result['item']['id'] = $id;
-		$result['item']['image'] = "";
-		$result['item']['name'] = "Berrylicious, 3mg, 60ml";
-		$result['item']['quantity'] = $quantity;
-		$result['item']['price'] = "150000";
-		$result['item']['price_str'] = "Rp 150.000";
-		$result['item']['total'] = "300000";
-		$result['item']['total_str'] = "Rp 300.000";
+		if ($item != null)
+		{
+			$result['item'] = $item;
+		}
+		else
+		{
+			// $result['err'] = 1;
+			$result['item'] = new item_model()
+		}
 		
 		header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
 		header("Cache-Control: post-check=0, pre-check=0", false);
@@ -156,34 +105,49 @@ class Customer extends CI_Controller {
 	
 	public function load_checkout_summary()
 	{
-		$items = $this->input->post('items');
+		$checkout_items = $this->input->post('items');
 		
 		$result = array();
 		
 		$result['err'] = 0;
 		
+		$this->load->model('item_model');
 		$this->load->library('text_renderer');
 		$result['summary'] = array();
 		$result['summary']['subtotal'] = 0;
 		$result['summary']['items'] = array();
-		foreach($items as $i => $item)
+		foreach($checkout_items as $i => $checkout_item)
 		{
-			$result['summary']['items'][$i] = array();
-			$result['summary']['items'][$i]['id'] = $item['id'];
-			$result['summary']['items'][$i]['image'] = "";
-			$result['summary']['items'][$i]['name'] = "Berrylicious, 3mg, 60ml";
-			$result['summary']['items'][$i]['quantity'] = $item['quantity'];
-			$result['summary']['items'][$i]['price'] = 150000;
-			$result['summary']['items'][$i]['price_str'] = "Rp 150.000";
-			$result['summary']['items'][$i]['total'] = 300000;
-			$result['summary']['items'][$i]['total_str'] = "Rp 300.000";
+			$item = $this->item_model->get($checkout_item['id']);
 			
-			$result['summary']['subtotal'] += 300000;
+			if ($item != null)
+			{
+				$item->price_str = $this->text_renderer($item->price);
+				$item->quantity = $checkout_item['quantity'];
+				$item->total = $checkout_item['quantity'] * $item->price;
+				$item->total_str = $this->text_renderer($item->total);
+				$result['item'] = $item;
+			}
+			else
+			{
+				$result['err'] = 1;
+				$result['item'] = array();
+				break;
+			}
+			
+			$result['summary']['subtotal'] += $item->total;
 		}
-		$result['summary']['free_ongkir'] = 20000;
 		
-		$result['summary']['subtotal_str'] = $this->text_renderer->to_rupiah($result['summary']['subtotal']);
-		$result['summary']['free_ongkir_str'] = $this->text_renderer->to_rupiah($result['summary']['free_ongkir']);
+		if ($result['err'] == 0)
+		{
+			$this->load->model('ongkir_setting_model');
+			$ongkir_setting = $this->ongkir_setting_model->get_last();
+			$free_ongkir = $this->ongkir_setting_model->calculate_free_value($ongkir_setting, $order_value);
+			$result['summary']['free_ongkir'] = $free_ongkir;
+			$result['summary']['free_ongkir_str'] = $this->text_renderer->to_rupiah($free_ongkir);
+			
+			$result['summary']['subtotal_str'] = $this->text_renderer->to_rupiah($result['summary']['subtotal']);
+		}
 		
 		header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
 		header("Cache-Control: post-check=0, pre-check=0", false);
@@ -200,4 +164,78 @@ class Customer extends CI_Controller {
 	/********************
 	    ACTIONS
 	 ********************/
+	 
+	public function order_do()
+	{
+		$customer_name = $this->input->post('customer_name');
+		$shipping_address = $this->input->post('shipping_address');
+		$shipping_method = $this->input->post('shipping_method');
+		$checkout_items = $this->input->post('items');
+		
+		$result = array();
+		
+		$result['err'] = 0;
+		
+		$this->load->model('ongkir_setting_model');
+		$this->load->model('customer_order_model');
+		
+		$ongkir_setting = $this->ongkir_setting_model->get_last();
+		$customer_order = array();
+		$customer_order['ongkir_setting_id'] = $ongkir_setting->id;
+		$customer_order['customer_name'] = $customer_name;
+		$customer_order['shipping_address'] = $shipping_address;
+		$customer_order['shipping_method'] = $shipping_method;
+		$customer_order_id = $this->customer_order_model->insert($customer_order);
+		
+		if (!$customer_order_id)
+		{
+			$result['err'] = 1;
+			$result['whatsapp_message'] = "";
+		}
+		else
+		{
+			$this->load->model('order_item_model');
+			$this->load->model('item_model');
+			$order_items = array();
+			$items = array();
+			$order_value = 0;
+			foreach ($checkout_items as $i => $checkout_item)
+			{
+				$item = $this->item_model->get($checkout_item['item_id']);
+				$item->quantity = $checkout_item['quantity'];
+				$items[$i] = $item;
+				
+				$order_items[$i]['customer_order_id'] = $customer_order_id;
+				$order_items[$i]['item_id'] = $checkout_item['id'];
+				$order_items[$i]['quantity'] = $checkout_item['quantity'];
+				$order_items[$i]['price'] = $item->price;
+				
+				$order_value += $checkout_item['quantity'] * $item->price;
+			}
+			$query_result = $this->order_item_model->insert_batch($order_items);
+			
+			if ($query_result)
+			{
+				$this->load->library('text_renderer');
+				$this->load->library('message_generator');
+				
+				$this->ongkir_setting_model->calculate_free_value($ongkir_setting, $order_value);
+				$free_ongkir = $this->text_renderer->to_rupiah($order_value);
+				$whatsapp_message = $this->message_generator->order_whatsapp($customer_name, $shipping_address, $shipping_method, $free_ongkir, $items);
+				$result['whatsapp_message'] = $whatsapp_message;
+			}
+		}
+		
+		header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+		header("Cache-Control: post-check=0, pre-check=0", false);
+		header("Pragma: no-cache");
+		header("Content-Type: application/json; charset=utf-8");
+		echo json_encode($result);
+	}
+	
+	public function send_to_whatsapp()
+	{
+		$message = $this->input->post('message');
+		redirect('https://wa.me/'.WHATSAPP_NUMBER.'?text='.$message);
+	}
 }

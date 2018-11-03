@@ -53,8 +53,8 @@ function load_item_list() {
 						element.find("[name='item_stock']").val(cur_quantity + 1);
 					});
 				});
-			} else {
-				
+			} else if (result.err == 1) {
+				alert('Server error');
 			}
 		}
 	});
@@ -82,11 +82,16 @@ function load_item_detail(item_id) {
 				element.find("[name='item_stock']").val(result.item.stock);
 				element.find("[name='item_description_long']").val(result.item.description_long);
 	
+				element.find("[name='btn_save']").on("click", function(){
+					update_item_do();
+					load_item_list();
+				});
+	
 				element.find("[name='btn_back']").on("click", function(){
 					scrollTop();
 				});
-			} else {
-				
+			} else if (result.err == 1) {
+				alert('Server error');
 			}
 		}
 	});
@@ -100,6 +105,7 @@ function load_tambah_item() {
 	var element = $("#setting_detail");
 	
 	element.find("[name='btn_save']").on("click", function(){
+		tambah_item_do();
 		load_item_list();
 	});
 	
@@ -124,20 +130,66 @@ function load_atur_ongkir(item_id) {
 				$(template).appendTo("#setting_detail");
 				var element = $("#setting_detail");
 				
-				element.find("[name='min_belanja']").val(result.ongkir.min_belanja);
-				element.find("[name='free_ongkir']").val(result.ongkir.free_ongkir);
-				element.find("[name='per_belanja']").val(result.ongkir.per_belanja);
-				element.find("[name='maks_free']").val(result.ongkir.maks_free);
+				element.find("[name='minimum_order']").val(result.ongkir.minimum_order);
+				element.find("[name='free_value']").val(result.ongkir.free_value);
+				element.find("[name='per_price']").val(result.ongkir.per_price);
+				element.find("[name='maximum_free']").val(result.ongkir.maximum_free);
 	
 				element.find("[name='btn_save']").on("click", function(){
+					atur_ongkir_do();
 					load_item_list();
 				});
 				
 				element.find("[name='btn_back']").on("click", function(){
 					scrollTop();
 				});
-			} else {
+			} else if (result.err == 1) {
+				alert('Server error');
+			}
+		}
+	});
+}
+
+function update_item_do() {
+	$.ajax({
+		type: "POST",
+		url: base_url + "/Admin/update_item_do/",
+		data: $("#form_setting_item_detail").serialize(),
+		success: function(result) {
+			if (result.err == 0) {
 				
+			} else if (result.err == 1) {
+				alert('Server error');
+			}
+		}
+	});
+}
+
+function tambah_item_do() {
+	$.ajax({
+		type: "POST",
+		url: base_url + "/Admin/create_item_do/",
+		data: $("#form_tambah_item_detail").serialize(),
+		success: function(result) {
+			if (result.err == 0) {
+				
+			} else if (result.err == 1) {
+				alert('Server error');
+			}
+		}
+	});
+}
+
+function atur_ongkir_do() {
+	$.ajax({
+		type: "POST",
+		url: base_url + "/Admin/create_ongkir_setting_do/",
+		data: $("#form_atur_ongkir_detail").serialize(),
+		success: function(result) {
+			if (result.err == 0) {
+				
+			} else if (result.err == 1) {
+				alert('Server error');
 			}
 		}
 	});

@@ -1,5 +1,5 @@
 <div name="checkout_template" class="template">
-	<form action="<?=site_url('Customer/order_via_whatsapp')?>" method="post" class="h-100">
+	<form action="<?=site_url('Customer/order_via_whatsapp')?>" method="post" class="h-100" id="form_checkout">
 		<input type="hidden" name="subtotal"/>
 		<input type="hidden" name="free_ongkir"/>
 		<div class="d-table h-100 w-100">
@@ -44,17 +44,17 @@
 				<div class="d-table-cell align-bottom">
 					<div class="form-group">
 						<label for="customer_name">Nama</label>
-						<input type="text" class="form-control" id="customer_name" placeholder="Nama...">
+						<input type="text" class="form-control" name="customer_name" placeholder="Nama...">
 					</div>
 					<div class="form-group">
 						<label for="shipping_address">Alamat Kirim</label>
-						<input type="text" class="form-control" id="shipping_address" placeholder="Alamat Kirim...">
+						<input type="text" class="form-control" name="shipping_address" placeholder="Alamat Kirim...">
 					</div>
 					<div class="form-group">
 						<div class="row">
 							<label for="shipping_method" class="col-2 col-md-1 text-right">via</label>
 							<div class="col-4 col-md-3">
-								<select class="form-control">
+								<select class="form-control" name="shipping_method">
 									<option value="GOJEK" selected>Go-Jek</option>
 									<option value="TIKI">TIKI</option>
 									<option value="JnT">J&T </option>
@@ -76,6 +76,9 @@
 				</div>
 			</div>
 		</div>
+	</form>
+	<form action="<?=site_url('customer/send_to_whatsapp')?>" method="post" target="_blank" id="form_send_to_whatsapp">
+		<input type="hidden" name="message" />
 	</form>
 </div>
 

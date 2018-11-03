@@ -1,5 +1,5 @@
 <div name="setting_tambah_item_template" class="template">
-	<form class="form-horizontal h-100">
+	<form class="form-horizontal h-100" id="form_tambah_item_detail">
 		<div class="d-table h-100 w-100">
 			<div class="d-table-row row-fit">
 				<div class="d-table-cell align-top">
@@ -17,10 +17,10 @@
 					<div class="row">
 						<div class="col-md-12 col-lg-6">
 							<div class="form-group">
-								<label for="add_image_file" class="control-label">
-									<button type="button" class="btn btn-success" id="btn_upload_photo">Upload Foto</button>
+								<label for="item_image_file" class="control-label">
+									<span class="btn btn-success" id="btn_upload_photo">Upload Foto</span>
 								</label>
-								<input type="file" class="form-control" id="add_image_file" style="display: none"/>
+								<input type="file" class="form-control" id="item_image_file" name="item_image_file" style="display: none"/>
 							</div>
 							<div class="form-group">
 								<label for="item_name" class="control-label">Nama</label>
@@ -46,7 +46,7 @@
 				<div class="d-table-cell align-bottom">
 					<nav class="navbar navbar-expand navbar-light bg-light">
 						<button name="btn_save" type="button" class="btn btn-primary w-50">Simpan</button>
-						<button name="btn_back" type="button" class="btn btn-default w-50">Batal</button>
+						<button name="btn_back" type="button" class="btn btn-default w-50">Kembali</button>
 					</nav>
 				</div>
 			</div>

@@ -1,5 +1,5 @@
 <div name="setting_item_detail_template" class="template">
-	<form class="form-horizontal h-100">
+	<form class="form-horizontal h-100" id="form_setting_item_detail">
 		<div class="d-table h-100 w-100">
 			<div class="d-table-row row-fit">
 				<div class="d-table-cell align-top">
@@ -20,7 +20,7 @@
 								<label for="item_image_file" class="control-label">
 									<img alt="" src="" class="img-thumbnail" name="item_image"/>
 								</label>
-								<input type="file" class="form-control" id="item_image_file" style="display: none"/>
+								<input type="file" class="form-control" id="item_image_file" name="item_image_file" style="display: none"/>
 							</div>
 							<div class="form-group">
 								<label for="item_image" class="control-label">Nama</label>
@@ -46,7 +46,7 @@
 				<div class="d-table-cell align-bottom">
 					<nav class="navbar navbar-expand navbar-light bg-light col-12">
 						<button name="btn_save" type="button" class="btn btn-primary col-6">Simpan</button>
-						<button name="btn_back" type="button" class="btn btn-default col-6">Batal</button>
+						<button name="btn_back" type="button" class="btn btn-default col-6">Kembali</button>
 					</nav>
 				</div>
 			</div>
