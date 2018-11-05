@@ -37,17 +37,17 @@ function peek_password(peeked_id) {
 function scrollTop() {
 	$('html, body').animate({
 		scrollTop: 0
-	}, 500);
+	}, 100);
 }
 
 function scrollBottom() {
 	$('html, body').animate({
 		scrollTop: $("html, body").height()
-	}, 500);
+	}, 100);
 }
 
 function scrollTo(elementSelector) {
 	$('html, body').animate({
 		scrollTop: $(elementSelector).offset().top - $("html, body").offset().top + $("html, body").scrollTop()
-	}, 500);
+	}, 100);
 }

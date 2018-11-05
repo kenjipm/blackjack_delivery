@@ -1,8 +1,17 @@
 $(document).ready(function(){
+	bind_search_input();
+	bind_btn_search();
 	load_item_list();
 	bind_btn_hitung();
-	bind_btn_search();
 });
+
+function bind_search_input() {
+	$("#search_input").on("keypress", function(e){
+		if(e.keyCode == 13) {
+			$("#btn_search").click();
+		}
+	});
+}
 
 function bind_btn_hitung() {
 	$("#btn_hitung").on("click", function(){
@@ -22,6 +31,16 @@ function clear_item_list() {
 	$("#item_list").html("");
 }
 
+function prepare_second_frame() {
+	$("#second_frame").show();
+	scrollTo("#second_frame");
+}
+
+function back_to_first_frame() {
+	scrollTop();
+	$("#second_frame").hide();
+}
+
 function load_item_list(search_terms="") {
 	$.ajax({
 		type: "POST",
@@ -32,7 +51,7 @@ function load_item_list(search_terms="") {
 		},
 		success: function(result) {
 			if (result.err == 0) {
-				scrollTop();
+				back_to_first_frame();
 				result.items.forEach(function(item){
 					var template = $("[name='item_template']").html();
 					$(template).attr("item_id", item.id).appendTo("#item_list");
@@ -47,8 +66,7 @@ function load_item_list(search_terms="") {
 					element.find("[name='item_stock']").val(item.stock);
 					
 					element.find("[name='item_image'], [name='item_name'], [name='item_description_long'], [name='item_price_str']").on("click", function(){
-						scrollTo("#order_detail");
-						// scrollBottom();
+						prepare_second_frame();
 						load_item_detail(item.id);
 					});
 					
@@ -92,7 +110,7 @@ function load_item_detail(item_id) {
 				element.find("[name='item_description_long']").html(result.item.description_long);
 	
 				element.find("[name='btn_back']").on("click", function(){
-					scrollTop();
+					back_to_first_frame();
 				});
 			} else if (result.err == 1) {
 				alert('Server error');
@@ -128,6 +146,7 @@ function load_checkout() {
 			},
 			success: function(result) {
 				if (result.err == 0) {
+					prepare_second_frame();
 					var template = $("[name='checkout_template']").html();
 					$(template).appendTo("#order_detail");
 					var element = $("#order_detail");
@@ -159,7 +178,7 @@ function load_checkout() {
 					});
 	
 					element.find("[name='btn_back']").on("click", function(){
-						scrollTop();
+						back_to_first_frame();
 					});
 				} else if (result.err == 1) {
 					alert('Server error');

@@ -6,20 +6,23 @@ class Message_generator {
 	{
         $message = urlencode("Halo! Saya telah melakukan order melalui website ".COMPANY_NAME." dengan detail pesanan sebagai berikut:");
 		$message .= "%0A%0A";
-		$message .= urlencode("Nama: ".$customer_name);
+		$message .= urlencode("*Nama:* ".$customer_name);
 		$message .= "%0A";
-		$message .= urlencode("Alamat Kirim: ".$shipping_address);
+		$message .= urlencode("*Alamat Kirim:* ".$shipping_address);
 		$message .= "%0A";
-		$message .= urlencode("Metode Pengiriman: ".$shipping_method);
+		$message .= urlencode("*Metode Pengiriman:* ".$shipping_method);
 		$message .= "%0A";
-		$message .= urlencode("Free Ongkir Didapat: ".$free_ongkir);
+		$message .= urlencode("*Free Ongkir Didapat:* ".$free_ongkir);
 		$message .= "%0A";
-		$message .= urlencode("Barang yang dipesan:");
+		$message .= urlencode("*Barang yang dipesan:*");
 		$message .= "%0A";
 		
 		foreach ($items as $item)
 		{
-			$message .= urlencode(" - ".$item->name.", ".$item->sub_name_1.", ".$item->sub_name_2." = ".$item->quantity." pcs");
+			$message .= urlencode(" - ".$item->name);
+			$message .= ($item->sub_name_1 != "") ? urlencode(", ".$item->sub_name_1) : "";
+			$message .= ($item->sub_name_2 != "") ? urlencode(", ".$item->sub_name_2) : "";
+			$message .= urlencode(" = ".$item->quantity." pcs");
 			$message .= "%0A";
 		}
 		

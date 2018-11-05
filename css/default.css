@@ -38,3 +38,16 @@
 .row-fit {
 	height: fit-content;
 }
+
+.nopadding {
+   padding: 0 !important;
+   margin: 0 !important;
+}
+
+.bg-semilight {
+	background-color: #EEEEEE;
+}
+
+.btn.bg-semilight:hover {
+	background-color: #CCCCCC;
+}

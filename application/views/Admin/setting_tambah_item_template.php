@@ -5,8 +5,8 @@
 				<div class="d-table-cell align-top">
 					<div class="row">
 						<div class="col-12">
-							<nav class="navbar navbar-expand navbar-light bg-light">
-								<h2>Tambah Item</h2>
+							<nav class="navbar navbar-expand navbar-light bg-semilight">
+								<h3>Tambah Item</h3>
 							</nav>
 						</div>
 					</div>
@@ -14,11 +14,11 @@
 			</div>
 			<div class="d-table-row">
 				<div class="d-table-cell">
-					<div class="row">
+					<div class="position-relative h-100 overflow-y-auto">
 						<div class="col-md-12 col-lg-6">
 							<div class="form-group">
 								<label for="item_image_file" class="control-label">
-									<img alt="" src="" class="img-thumbnail" name="item_image"/>
+									<img alt="" src="" class="img-fluid rounded pb-2" name="item_image"/>
 									<span class="btn btn-success" id="btn_upload_photo">Upload Foto</span>
 								</label>
 								<input type="file" class="form-control" id="item_image_file" name="item_image_file" accept="image/*" style="display: none"/>
@@ -53,24 +53,18 @@
 			</div>
 			<div class="d-table-row row-fit">
 				<div class="d-table-cell align-bottom">
-					<nav class="navbar navbar-expand navbar-light bg-light">
+					<div class="row nopadding">
 						<div class="col-12">
-							<div class="row">
-								<div class="col-12">
-									<div class="txt-success" name="success_message"></div>
-									<div class="txt-danger" name="failure_message"></div>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-6">
-									<button name="btn_save" type="button" class="btn btn-primary w-100">Tambah</button>
-								</div>
-								<div class="col-6">
-									<button name="btn_back" type="button" class="btn btn-default w-100">Kembali</button>
-								</div>
-							</div>
+							<div class="txt-success" name="success_message"></div>
+							<div class="txt-danger" name="failure_message"></div>
 						</div>
-					</nav>
+						<nav class="navbar navbar-expand navbar-light bg-success w-50 nopadding">
+							<button type="button" name="btn_save" class="btn btn-success btn-lg w-100" id="btn_save">Tambah</button>
+						</nav>
+						<nav class="navbar navbar-expand navbar-light bg-semilight w-50 nopadding">
+							<button type="button" name="btn_back" class="btn btn-default btn-lg bg-semilight w-100" id="btn_back">Kembali</button>
+						</nav>
+					</div>
 				</div>
 			</div>
 		</div>

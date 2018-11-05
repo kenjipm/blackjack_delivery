@@ -253,6 +253,30 @@ class Admin extends CI_Controller {
 		echo json_encode($result);
 	}
 	
+	public function save_item_do()
+	{
+		$result['err'] = 0;
+		
+		$item = array();
+		$item['id'] = $this->input->post('item_id');
+		$item['price'] = $this->input->post('item_price');
+		$item['stock'] = $this->input->post('item_stock');
+		
+		$this->load->model('item_model');
+		$query_result = $this->item_model->update($item);
+		
+		if (!$query_result)
+		{
+			$result['err'] = 1;
+		}
+		
+		header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+		header("Cache-Control: post-check=0, pre-check=0", false);
+		header("Pragma: no-cache");
+		header("Content-Type: application/json; charset=utf-8");
+		echo json_encode($result);
+	}
+	
 	public function delete_item_do()
 	{
 		$result['err'] = 0;

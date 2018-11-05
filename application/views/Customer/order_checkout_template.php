@@ -7,7 +7,9 @@
 				<div class="d-table-cell align-top">
 					<div class="row">
 						<div class="col-12">
-							<h2>Review Pesanan</h2>
+							<nav class="navbar navbar-expand navbar-light bg-semilight">
+								<h3>Review Pesanan</h3>
+							</nav>
 						</div>
 					</div>
 				</div>
@@ -69,10 +71,14 @@
 			</div>
 			<div class="d-table-row row-fit">
 				<div class="d-table-cell align-bottom">
-					<nav class="navbar navbar-expand navbar-light bg-light">
-						<button name="btn_order" type="button" class="btn btn-success w-50">Pesan via WhatsApp</button>
-						<button name="btn_back" type="button" class="btn btn-default w-50">Kembali</button>
-					</nav>
+					<div class="row nopadding">
+						<nav class="navbar navbar-expand navbar-light bg-success w-50 nopadding">
+							<button name="btn_order" type="button" class="btn btn-success btn-lg w-100 h-100">Pesan via WhatsApp</button>
+						</nav>
+						<nav class="navbar navbar-expand navbar-light bg-semilight w-50 nopadding">
+							<button name="btn_back" type="button" class="btn btn-default btn-lg bg-semilight w-100 h-100">Kembali</button>
+						</nav>
+					</div>
 				</div>
 			</div>
 		</div>

@@ -4,6 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <html lang="en">
 <head>
 	<meta charset='utf-8'>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?=COMPANY_NAME?></title>
 	<link rel="icon" href="<?=base_url('img/favicon.png');?>" type="image/png">
 	
@@ -41,4 +42,4 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
 
 	<!-- BODY CONTAINER -->
-    <div class="container-fluid pt-1 pb-1">
+    <div class="container-fluid">

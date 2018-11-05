@@ -60,9 +60,9 @@ class Customer extends CI_Controller {
 			{
 				$item->name = $item->name . ($item->sub_name_1?", ".$item->sub_name_1:"") . ($item->sub_name_2?", ".$item->sub_name_2:"");
 				$item->price_str = $this->text_renderer->to_rupiah($item->price);
-				if (count($item->description_long) > DESCRIPTION_CHAR_LIMIT)
+				if (strlen($item->description_long) > DESCRIPTION_CHAR_LIMIT)
 				{
-					$item->description_long = substr($item->description_long, 0, DESCRIPTION_CHAR_LIMIT - 2)."...";					
+					$item->description_long = substr($item->description_long, 0, DESCRIPTION_CHAR_LIMIT - 2)."...";
 				}
 				$item->image_path = $this->uploader->get_thumbnail_file($item->image_path);
 			}

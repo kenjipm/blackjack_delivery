@@ -1,12 +1,12 @@
 <div name="setting_atur_ongkir_template" class="template">
-	<form class="form-horizontal h-100" id="form_atur_ongkir_detail">
+	<form class="form-horizontal h-100 w-100" id="form_atur_ongkir_detail">
 		<div class="d-table h-100 w-100">
 			<div class="d-table-row row-fit">
 				<div class="d-table-cell align-top">
 					<div class="row">
 						<div class="col-12">
-							<nav class="navbar navbar-expand navbar-light bg-light">
-								<h2>Atur Ongkir</h2>
+							<nav class="navbar navbar-expand navbar-light bg-semilight">
+								<h3>Atur Ongkir</h3>
 							</nav>
 						</div>
 					</div>
@@ -14,7 +14,7 @@
 			</div>
 			<div class="d-table-row">
 				<div class="d-table-cell">
-					<div class="row">
+					<div class="position-relative h-100 overflow-y-auto">
 						<div class="col-md-12 col-lg-6">
 							<div class="form-group">
 								<label for="minimum_order" class="control-label">Minimum Belanja</label>
@@ -44,12 +44,18 @@
 			</div>
 			<div class="d-table-row row-fit">
 				<div class="d-table-cell align-bottom">
-					<nav class="navbar navbar-expand navbar-light bg-light">
-						<div class="txt-success" name="success_message"></div>
-						<div class="txt-danger" name="failure_message"></div>
-						<button name="btn_save" type="button" class="btn btn-primary w-50">Simpan</button>
-						<button name="btn_back" type="button" class="btn btn-default w-50">Kembali</button>
-					</nav>
+					<div class="row nopadding">
+						<div class="col-12">
+							<div class="txt-success" name="success_message"></div>
+							<div class="txt-danger" name="failure_message"></div>
+						</div>
+						<nav class="navbar navbar-expand navbar-light bg-success w-50 nopadding">
+							<button type="button" name="btn_save" class="btn btn-success btn-lg w-100" id="btn_hitung">Simpan</button>
+						</nav>
+						<nav class="navbar navbar-expand navbar-light bg-semilight w-50 nopadding">
+							<button type="button" name="btn_back" class="btn btn-default btn-lg bg-semilight w-100" id="btn_hitung">Kembali</button>
+						</nav>
+					</div>
 				</div>
 			</div>
 		</div>

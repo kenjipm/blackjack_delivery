@@ -1,20 +1,29 @@
 $(document).ready(function(){
+	bind_search_input();
+	bind_btn_search();
 	bind_btn_tambah_item();
 	bind_btn_atur_ongkir();
-	bind_btn_search();
 	load_item_list();
 });
 
+function bind_search_input() {
+	$("#search_input").on("keydown", function(e){
+		if(e.keyCode == 13) {
+			$("#btn_search").click();
+		}
+	});
+}
+
 function bind_btn_tambah_item() {
 	$("#btn_tambah_item").on("click", function(){
-		scrollTo("#setting_detail");
+		prepare_second_frame();
 		load_tambah_item();
 	});
 }
 
 function bind_btn_atur_ongkir() {
 	$("#btn_atur_ongkir").on("click", function(){
-		scrollTo("#setting_detail");
+		prepare_second_frame();
 		load_atur_ongkir();
 	});
 }
@@ -29,6 +38,16 @@ function bind_btn_search() {
 
 function clear_item_list() {
 	$("#item_list").html("");
+}
+
+function prepare_second_frame() {
+	$("#second_frame").show();
+	scrollTo("#second_frame");
+}
+
+function back_to_first_frame() {
+	scrollTop();
+	$("#second_frame").hide();
 }
 
 function load_item_list(search_terms="") {
@@ -53,19 +72,31 @@ function load_item_list(search_terms="") {
 					element.find("[name='item_stock']").val(item.stock);
 					
 					element.find("[name='btn_edit']").on("click", function(){
-						scrollTo("#setting_detail");
+						prepare_second_frame();
 						load_item_detail(item.id);
 					});
 					
+					// bind save button function
+					element.find("[name='btn_save']").prop("disabled", true);
 					element.find("[name='btn_save']").on("click", function(){
 						save_item_do(item.id);
 					});
 					
+					// enabling save button if item changed
+					element.find("[name='item_price']").on("keypress", function() {
+						element.find("[name='btn_save']").prop("disabled", false);
+					});
+					element.find("[name='button-minus-stock'], [name='button-add-stock']").on("click", function() {
+						element.find("[name='btn_save']").prop("disabled", false);
+					});
+					
 					element.find("[name=button-minus-stock]").on("click", function(){
+						var cur_quantity = parseInt(element.find("[name='item_stock']").val());
 						element.find("[name='item_stock']").val(cur_quantity - 1);
 					});
 					
 					element.find("[name=button-add-stock]").on("click", function(){
+						var cur_quantity = parseInt(element.find("[name='item_stock']").val());
 						element.find("[name='item_stock']").val(cur_quantity + 1);
 					});
 				});
@@ -118,7 +149,7 @@ function load_item_detail(item_id) {
 				});
 	
 				element.find("[name='btn_back']").on("click", function(){
-					scrollTop();
+					back_to_first_frame();
 				});
 	
 				element.find("[name='btn_delete']").on("click", function(){
@@ -155,7 +186,7 @@ function load_tambah_item() {
 	});
 	
 	element.find("[name='btn_back']").on("click", function(){
-		scrollTop();
+		back_to_first_frame();
 	});
 }
 
@@ -185,7 +216,7 @@ function load_atur_ongkir(item_id) {
 				});
 				
 				element.find("[name='btn_back']").on("click", function(){
-					scrollTop();
+					back_to_first_frame();
 				});
 			} else if (result.err == 1) {
 				alert('Server error');
@@ -197,20 +228,13 @@ function load_atur_ongkir(item_id) {
 function save_item_do(item_id) {
 	$.ajax({
 		type: "POST",
-		url: base_url + "/Admin/update_item_do/",
-		data: 
-		{
-			item_id: item_id,
-			price: price,
-			stock: stock
-		},
+		url: base_url + "/Admin/save_item_do/",
+		data: $("#item_list [name='item'][item_id=" + item_id + "] form").serialize(),
 		success: function(result) {
 			if (result.err == 0) {
-				$("#item_list [name='item'][item_id=" + item.id + "] [name='success_message']").html("&#10004;");
-				$("#item_list [name='item'][item_id=" + item.id + "] [name='failure_message']").html("");
+				$("#item_list [name='item'][item_id=" + item_id + "] [name='btn_save']").prop("disabled", true);
 			} else if (result.err == 1) {
-				$("#item_list [name='item'][item_id=" + item.id + "] [name='success_message']").html("");
-				$("#item_list [name='item'][item_id=" + item.id + "] [name='failure_message']").html("&#10008;");
+				alert("Gagal mengubah data, silakan coba lagi");
 			}
 		}
 	});
