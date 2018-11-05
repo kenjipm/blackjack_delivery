@@ -1,5 +1,6 @@
 <div name="setting_item_detail_template" class="template">
-	<form class="form-horizontal h-100" id="form_setting_item_detail">
+	<form class="form-horizontal h-100" id="form_setting_item_detail" enctype="multipart/form-data">
+		<input type="hidden" name="item_id"/>
 		<div class="d-table h-100 w-100">
 			<div class="d-table-row row-fit">
 				<div class="d-table-cell align-top">
@@ -19,12 +20,21 @@
 							<div class="form-group">
 								<label for="item_image_file" class="control-label">
 									<img alt="" src="" class="img-thumbnail" name="item_image"/>
+									<span class="btn btn-success" id="btn_upload_photo">Ubah Foto</span>
 								</label>
-								<input type="file" class="form-control" id="item_image_file" name="item_image_file" style="display: none"/>
+								<input type="file" class="form-control" id="item_image_file" name="item_image_file" accept="image/*" style="display: none"/>
 							</div>
 							<div class="form-group">
-								<label for="item_image" class="control-label">Nama</label>
+								<label for="item_name" class="control-label">Nama</label>
 								<input type="text" class="form-control" name="item_name"/>
+							</div>
+							<div class="form-group">
+								<label for="item_sub_name_1" class="control-label">Sub Nama 1</label>
+								<input type="text" class="form-control" name="item_sub_name_1"/>
+							</div>
+							<div class="form-group">
+								<label for="item_sub_name_2" class="control-label">Sub Nama 2</label>
+								<input type="text" class="form-control" name="item_sub_name_2"/>
 							</div>
 							<div class="form-group">
 								<label for="item_description_long" class="control-label">Deskripsi</label>
@@ -44,9 +54,26 @@
 			</div>
 			<div class="d-table-row row-fit">
 				<div class="d-table-cell align-bottom">
-					<nav class="navbar navbar-expand navbar-light bg-light col-12">
-						<button name="btn_save" type="button" class="btn btn-primary col-6">Simpan</button>
-						<button name="btn_back" type="button" class="btn btn-default col-6">Kembali</button>
+					<nav class="navbar navbar-expand navbar-light bg-light">
+						<div class="col-12">
+							<div class="row">
+								<div class="col-12">
+									<div class="txt-success" name="success_message"></div>
+									<div class="txt-danger" name="failure_message"></div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-4 col-lg-5">
+									<button name="btn_save" type="button" class="btn btn-primary w-100">Simpan</button>
+								</div>
+								<div class="col-4 col-lg-5">
+									<button name="btn_back" type="button" class="btn btn-default w-100">Kembali</button>
+								</div>
+								<div class="col-4 col-lg-2">
+									<button name="btn_delete" type="button" class="btn btn-danger w-100">Hapus</button>
+								</div>
+							</div>
+						</div>
 					</nav>
 				</div>
 			</div>

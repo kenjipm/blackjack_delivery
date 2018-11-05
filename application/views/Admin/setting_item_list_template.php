@@ -5,7 +5,11 @@
 			<div class="col-10">
 				<label class="control-label" name="item_name"></label>
 			</div>
-			<button type="button" class="btn btn-warning col-2" name="btn_edit"><span class="fas fa-edit" aria-hidden="true"></span></button>
+			<div class="col-2">
+				<button type="button" class="btn btn-warning" name="btn_edit">
+					<span class="fas fa-edit" aria-hidden="true"></span>
+				</button>
+			</div>
 		</div>
 		<div class="row">
 			<div class="col-4 col-md-12 col-xl-4">
@@ -20,7 +24,13 @@
 					<button type="button" class="btn btn-success input-group-append" name="button-add-stock"><span class="fas fa-plus" aria-hidden="true"></span></button>
 				</div>
 			</div>
-			<button type="button" class="btn btn-success col-2" name="btn_save"><span class="fas fa-save" aria-hidden="true"></span></button>
+			<div class="col-2">
+				<button type="button" class="btn btn-success" name="btn_save">
+					<span class="fas fa-save" aria-hidden="true"></span>
+				</button>
+				<span class="txt-success" name="success_message"></span>
+				<span class="txt-danger"  name="failure_message"></span>
+			</div>
 		</div>
 	</li>
 </div>

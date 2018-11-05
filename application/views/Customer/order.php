@@ -7,7 +7,7 @@
 						<div class="input-group pb-1">
 							<input type="text" id="search_input" class="form-control"/>
 							<div class="input-group-append">
-								<button type="button" class="btn btn-default"><span class="fas fa-search"></span></button>
+								<button type="button" class="btn btn-default" id="btn_search"><span class="fas fa-search"></span></button>
 							</div>
 						</div>
 					</nav>

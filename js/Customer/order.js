@@ -1,6 +1,7 @@
 $(document).ready(function(){
 	load_item_list();
 	bind_btn_hitung();
+	bind_btn_search();
 });
 
 function bind_btn_hitung() {
@@ -9,18 +10,29 @@ function bind_btn_hitung() {
 	});
 }
 
-function load_item_list() {
+function bind_btn_search() {
+	$("#btn_search").on("click", function(){
+		var search_terms = $("#search_input").val();
+		clear_item_list();
+		load_item_list(search_terms);
+	});
+}
+
+function clear_item_list() {
+	$("#item_list").html("");
+}
+
+function load_item_list(search_terms="") {
 	$.ajax({
 		type: "POST",
 		url: base_url + "/Customer/load_order_item_list/",
 		data:
 		{
-			
+			search_terms: search_terms
 		},
 		success: function(result) {
 			if (result.err == 0) {
 				scrollTop();
-				$("#item_list").html("");
 				result.items.forEach(function(item){
 					var template = $("[name='item_template']").html();
 					$(template).attr("item_id", item.id).appendTo("#item_list");
@@ -28,7 +40,7 @@ function load_item_list() {
 					
 					element.find("[name='item_id']").val(item.id);
 					element.find("[name='item_price']").val(item.price);
-					element.find("[name='item_image']").attr("src", item.image);
+					element.find("[name='item_image']").attr("src", item.image_path);
 					element.find("[name='item_name']").html(item.name);
 					element.find("[name='item_description_long']").html(item.description_long);
 					element.find("[name='item_price_str']").html(item.price_str);
@@ -74,7 +86,7 @@ function load_item_detail(item_id) {
 				$(template).appendTo("#order_detail");
 				var element = $("#order_detail");
 				
-				element.find("[name='item_image']").attr("src", result.item.image);
+				element.find("[name='item_image']").attr("src", result.item.image_path);
 				element.find("[name='item_name']").html(result.item.name);
 				element.find("[name='item_price_str']").html(result.item.price_str);
 				element.find("[name='item_description_long']").html(result.item.description_long);
@@ -143,7 +155,7 @@ function load_checkout() {
 					element.find("[name='free_ongkir_str']").html(result.summary.free_ongkir_str);
 	
 					element.find("[name='btn_order']").on("click", function(){
-						order_do(element);
+						order_do();
 					});
 	
 					element.find("[name='btn_back']").on("click", function(){
@@ -159,10 +171,10 @@ function load_checkout() {
 	}
 }
 
-function order_do(element) {
+function order_do() {
 	var order_items = [];
-	$("#form_checkout[name='item']").each(function(i){
-		var item_quantity = parseInt($(this).find("[name=item_quantity]").val());
+	$("#form_checkout [name='item']").each(function(i){
+		var item_quantity = parseInt($(this).find("[name=item_quantity]").html());
 		if (item_quantity > 0) {
 			var item_id = $(this).find("[name=item_id]").val();
 			order_items.push({
@@ -171,9 +183,9 @@ function order_do(element) {
 			});
 		}
 	});
-	var customer_name = $("#form_checkout[name='item']").find("[name=customer_name]").val();
-	var shipping_address = $("#form_checkout[name='item']").find("[name=shipping_address]").val();
-	var shipping_method = $("#form_checkout[name='item']").find("[name=shipping_method]").val();
+	var customer_name = $("#form_checkout [name='customer_name']").val();
+	var shipping_address = $("#form_checkout [name='shipping_address']").val();
+	var shipping_method = $("#form_checkout [name='shipping_method']").val();
 	
 	if (order_items.length > 0) {
 		$.ajax({
@@ -189,7 +201,7 @@ function order_do(element) {
 			success: function(result) {
 				if (result.err == 0) {
 					
-					send_to_whatsapp(whatsapp_message);
+					send_to_whatsapp(result.whatsapp_message);
 					
 				} else if (result.err == 1) {
 					alert('Server error');
@@ -202,6 +214,6 @@ function order_do(element) {
 }
 
 function send_to_whatsapp(message) {
-	$("#form_send_to_whatsapp[name=message]").val(message);
+	$("#form_send_to_whatsapp [name=message]").val(message);
 	$("#form_send_to_whatsapp").submit();
 }

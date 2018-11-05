@@ -75,15 +75,21 @@ class Admin extends CI_Controller {
 	 
 	public function load_item_list()
 	{
+		$search_terms = $this->input->post('search_terms');
+		
 		$result = array();
 		
 		$result['err'] = 0;
 		
 		$this->load->model('item_model');
-		$items = $this->item_model->get_all();
+		$items = $this->item_model->get_all($search_terms);
 		
 		if ($items != null)
 		{
+			foreach ($items as $item)
+			{
+				$item->name = $item->name . ($item->sub_name_1?", ".$item->sub_name_1:"") . ($item->sub_name_2?", ".$item->sub_name_2:"");
+			}
 			$result['items'] = $items;
 		}
 		else
@@ -117,7 +123,7 @@ class Admin extends CI_Controller {
 		else
 		{
 			$result['err'] = 1;
-			$result['item'] = array();
+			$result['item'] = new item_model();
 		}
 		
 		header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
@@ -161,17 +167,37 @@ class Admin extends CI_Controller {
 	public function create_item_do()
 	{
 		$result['err'] = 0;
-			
-		$item_image_file = $this->input->post('item_image_file');
-		$item_description_long = $this->input->post('item_description_long');
-		$item_price = $this->input->post('item_price');
-		$item_stock = $this->input->post('item_stock');
-		$this->load->model('item_model');
-		$query_result = $this->item_model->insert($item);
 		
-		if (!$query_result)
+		$item = array();
+		$item['name'] = $this->input->post('item_name');
+		$item['sub_name_1'] = $this->input->post('item_sub_name_1');
+		$item['sub_name_2'] = $this->input->post('item_sub_name_2');
+		$item['description_long'] = $this->input->post('item_description_long');
+		$item['price'] = $this->input->post('item_price');
+		$item['stock'] = $this->input->post('item_stock');
+		
+		$this->load->model('item_model');
+		$item_id = $this->item_model->insert($item);
+		
+		if ($item_id) // proses fotonya
 		{
-			$result['err'] = 1;
+			$this->load->library('uploader');
+			$file_path = $this->uploader->upload_image_item($item_id, 'item_image_file'); // upload fotonya
+			if ($file_path)
+			{
+				$item = array();
+				$item['id'] = $item_id;
+				$item['image_path'] = $file_path; // then set return value
+				$query_result = $this->item_model->update($item);
+			}
+			else
+			{
+				$result['err'] = 2; // foto gagal di upload
+			}
+		}
+		else //if (!$item_id)
+		{
+			$result['err'] = 1; // item gagal di insert
 		}
 		
 		header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
@@ -185,9 +211,56 @@ class Admin extends CI_Controller {
 	{
 		$result['err'] = 0;
 			
-		$item = $this->input->post('item');
+		$item_image_file = $this->input->post('item_image_file');
+		
+		$item = array();
+		$item['id'] = $this->input->post('item_id');
+		$item['name'] = $this->input->post('item_name');
+		$item['sub_name_1'] = $this->input->post('item_sub_name_1');
+		$item['sub_name_2'] = $this->input->post('item_sub_name_2');
+		$item['description_long'] = $this->input->post('item_description_long');
+		$item['price'] = $this->input->post('item_price');
+		$item['stock'] = $this->input->post('item_stock');
+		
 		$this->load->model('item_model');
 		$query_result = $this->item_model->update($item);
+		
+		if ($query_result) // proses fotonya
+		{
+			$this->load->library('uploader');
+			$file_path = $this->uploader->upload_image_item($item['id'], 'item_image_file'); // upload fotonya
+			if ($file_path)
+			{
+				$item = array();
+				$item['id'] = $this->input->post('item_id');
+				$item['image_path'] = $file_path; // then set return value
+				$query_result = $this->item_model->update($item);
+			}
+			else
+			{
+				//$result['err'] = 2; // foto gagal di upload
+			}
+		}
+		else //if (!$query_result)
+		{
+			$result['err'] = 1;
+		}
+		
+		header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+		header("Cache-Control: post-check=0, pre-check=0", false);
+		header("Pragma: no-cache");
+		header("Content-Type: application/json; charset=utf-8");
+		echo json_encode($result);
+	}
+	
+	public function delete_item_do()
+	{
+		$result['err'] = 0;
+		
+		$item_id = $this->input->post('item_id');
+		
+		$this->load->model('item_model');
+		$query_result = $this->item_model->delete($item_id);
 		
 		if (!$query_result)
 		{
@@ -212,9 +285,9 @@ class Admin extends CI_Controller {
 		$ongkir_setting['maximum_free'] = $this->input->post('maximum_free');
 		
 		$this->load->model('ongkir_setting_model');
-		$query_result = $this->ongkir_setting_model->insert($ongkir_setting);
+		$ongkir_setting_id = $this->ongkir_setting_model->insert($ongkir_setting);
 		
-		if (!$query_result)
+		if (!$ongkir_setting_id)
 		{
 			$result['err'] = 1;
 		}

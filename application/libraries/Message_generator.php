@@ -25,5 +25,7 @@ class Message_generator {
 		
 		$message .= "%0A";
 		$message .= urlencode("Mohon dikabari secepatnya mengenai ketersediaan stok, ongkir, dan rekening transfernya. Terima kasih.");
+		
+		return $message;
 	}
 }

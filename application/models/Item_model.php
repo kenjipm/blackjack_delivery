@@ -22,14 +22,30 @@ class Item_model extends CI_Model {
 		$price = 0;
 	}
 	
-	public function get_all($include_deleted=false)
+	public function get_all($search_terms="", $include_deleted=false)
 	{
 		$query_str = "
-			SELECT id, name, sub_name_1, sub_name_2, description_long, stock, price
+			SELECT id, name, image_path, sub_name_1, sub_name_2, description_long, stock, price
 			FROM ".TABLE_ITEM."
 			WHERE ".(!$include_deleted?"is_deleted = 0 AND":"")."
 				1 = 1
 		";
+		
+		if ($search_terms != "")
+		{
+			$search_terms = explode(" ", $search_terms);
+			foreach ($search_terms as $search_term)
+			{
+				$query_str .= " AND (
+					name LIKE '%$search_term%' OR
+					sub_name_1 LIKE '%$search_term%' OR
+					sub_name_2 LIKE '%$search_term%' OR
+					description_long LIKE '%$search_term%'
+				) ";
+			}
+		}
+		
+		$query_str .= " ORDER BY updated_date DESC";
 		
 		$query = $this->db->query($query_str);
 		
@@ -41,7 +57,7 @@ class Item_model extends CI_Model {
 	public function get($id, $include_deleted=false)
 	{
 		$query_str = "
-			SELECT id, name, sub_name_1, sub_name_2, description_long, stock, price
+			SELECT id, name, image_path, sub_name_1, sub_name_2, description_long, stock, price
 			FROM ".TABLE_ITEM."
 			WHERE ".(!$include_deleted?"is_deleted = 0 AND":"")."
 				id = $id
@@ -67,18 +83,18 @@ class Item_model extends CI_Model {
 	{
 		$db_object['updated_by'] = $this->session->username;
 		$this->db->where('id', $db_object['id']);
-		$this->db->update(TABLE_ITEM, $db_object);
+		return $this->db->update(TABLE_ITEM, $db_object);
 		
-		return ($this->db->affected_rows() > 0) ? true : false;
+		// return ($this->db->affected_rows() > 0) ? true : false;
 	}
 	
 	public function delete($id)
 	{
 		$this->db->set('is_deleted', 1);
 		$this->db->where('id', $id);
-		$this->db->update(TABLE_ITEM);
+		return $this->db->update(TABLE_ITEM);
 		
-		return ($this->db->affected_rows() > 0) ? true : false;
+		// return ($this->db->affected_rows() > 0) ? true : false;
 	}
 	
 }

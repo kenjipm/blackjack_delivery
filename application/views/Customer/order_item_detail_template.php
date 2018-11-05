@@ -22,8 +22,10 @@
 		</div>
 		<div class="d-table-row row-fit">
 			<div class="d-table-cell align-bottom">
-				<nav class="navbar navbar-expand navbar-light bg-light col-12">
-					<button name="btn_back" type="button" class="btn btn-default col-12">Kembali</button>
+				<nav class="navbar navbar-expand navbar-light bg-light">
+					<div class="col-12">
+						<button name="btn_back" type="button" class="btn btn-default col-12">Kembali</button>
+					</div>
 				</nav>
 			</div>
 		</div>

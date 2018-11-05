@@ -43,22 +43,28 @@ class Customer extends CI_Controller {
 	
 	public function load_order_item_list()
 	{
+		$search_terms = $this->input->post('search_terms');
+		
 		$result = array();
 		
 		$result['err'] = 0;
 		
 		$this->load->model('item_model');
-		$items = $this->item_model->get_all();
+		$items = $this->item_model->get_all($search_terms);
 		
 		if ($items != null)
 		{
+			$this->load->library('uploader');
+			$this->load->library('text_renderer');
 			foreach ($items as $item)
 			{
-				$item->price_str = $this->text_renderer($item->price);
+				$item->name = $item->name . ($item->sub_name_1?", ".$item->sub_name_1:"") . ($item->sub_name_2?", ".$item->sub_name_2:"");
+				$item->price_str = $this->text_renderer->to_rupiah($item->price);
 				if (count($item->description_long) > DESCRIPTION_CHAR_LIMIT)
 				{
 					$item->description_long = substr($item->description_long, 0, DESCRIPTION_CHAR_LIMIT - 2)."...";					
 				}
+				$item->image_path = $this->uploader->get_thumbnail_file($item->image_path);
 			}
 			$result['items'] = $items;
 		}
@@ -92,8 +98,8 @@ class Customer extends CI_Controller {
 		}
 		else
 		{
-			// $result['err'] = 1;
-			$result['item'] = new item_model()
+			$result['err'] = 1;
+			$result['item'] = new item_model();
 		}
 		
 		header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
@@ -122,16 +128,17 @@ class Customer extends CI_Controller {
 			
 			if ($item != null)
 			{
-				$item->price_str = $this->text_renderer($item->price);
+				$item->name = $item->name . ($item->sub_name_1?", ".$item->sub_name_1:"") . ($item->sub_name_2?", ".$item->sub_name_2:"");
+				$item->price_str = $this->text_renderer->to_rupiah($item->price);
 				$item->quantity = $checkout_item['quantity'];
 				$item->total = $checkout_item['quantity'] * $item->price;
-				$item->total_str = $this->text_renderer($item->total);
-				$result['item'] = $item;
+				$item->total_str = $this->text_renderer->to_rupiah($item->total);
+				$result['summary']['items'][] = $item;
 			}
 			else
 			{
 				$result['err'] = 1;
-				$result['item'] = array();
+				$result['summary']['items'] = array();
 				break;
 			}
 			
@@ -142,7 +149,7 @@ class Customer extends CI_Controller {
 		{
 			$this->load->model('ongkir_setting_model');
 			$ongkir_setting = $this->ongkir_setting_model->get_last();
-			$free_ongkir = $this->ongkir_setting_model->calculate_free_value($ongkir_setting, $order_value);
+			$free_ongkir = $this->ongkir_setting_model->calculate_free_value($ongkir_setting, $result['summary']['subtotal']);
 			$result['summary']['free_ongkir'] = $free_ongkir;
 			$result['summary']['free_ongkir_str'] = $this->text_renderer->to_rupiah($free_ongkir);
 			
@@ -201,7 +208,7 @@ class Customer extends CI_Controller {
 			$order_value = 0;
 			foreach ($checkout_items as $i => $checkout_item)
 			{
-				$item = $this->item_model->get($checkout_item['item_id']);
+				$item = $this->item_model->get($checkout_item['id']);
 				$item->quantity = $checkout_item['quantity'];
 				$items[$i] = $item;
 				
@@ -219,8 +226,8 @@ class Customer extends CI_Controller {
 				$this->load->library('text_renderer');
 				$this->load->library('message_generator');
 				
-				$this->ongkir_setting_model->calculate_free_value($ongkir_setting, $order_value);
-				$free_ongkir = $this->text_renderer->to_rupiah($order_value);
+				$free_ongkir = $this->ongkir_setting_model->calculate_free_value($ongkir_setting, $order_value);
+				$free_ongkir = $this->text_renderer->to_rupiah($free_ongkir);
 				$whatsapp_message = $this->message_generator->order_whatsapp($customer_name, $shipping_address, $shipping_method, $free_ongkir, $items);
 				$result['whatsapp_message'] = $whatsapp_message;
 			}

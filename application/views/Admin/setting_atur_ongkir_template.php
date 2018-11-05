@@ -45,6 +45,8 @@
 			<div class="d-table-row row-fit">
 				<div class="d-table-cell align-bottom">
 					<nav class="navbar navbar-expand navbar-light bg-light">
+						<div class="txt-success" name="success_message"></div>
+						<div class="txt-danger" name="failure_message"></div>
 						<button name="btn_save" type="button" class="btn btn-primary w-50">Simpan</button>
 						<button name="btn_back" type="button" class="btn btn-default w-50">Kembali</button>
 					</nav>
