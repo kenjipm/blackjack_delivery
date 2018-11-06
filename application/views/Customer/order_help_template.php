@@ -23,17 +23,17 @@
 							<br/>
 							
 							<h5>Bagaimana cara memesannya?</h5>
-							Aplikasi ini menggunakan WhatsApp untuk melakukan pemesanan, sehingga pastikan perangkat yang kamu gunakan terpasang aplikasi WhatsApp (mobile / web).
+							Aplikasi ini menggunakan WhatsApp / Line untuk melakukan pemesanan, sehingga pastikan perangkat yang kamu gunakan terpasang aplikasi WhatsApp / Line (mobile / web).
 							<br/>
 							<ul>
 								<li>
 									Setelah memilih barang yang akan dipesan, klik tombol "Hitung" di bagian bawah, atau pada menu di atas.
 								</li>
 								<li>
-									Masukkan informasi nama dan alamat kirim lengkap, lalu klik tombol "Pesan via WhatsApp".
+									Masukkan informasi nama dan alamat kirim lengkap, lalu klik tombol "Pesan via WhatsApp" / "Pesan via Line".
 								</li>
 								<li>
-									Pesan yang berisi detail pesanan akan terbuat otomatis, kamu tinggal menekan tombol kirim chat pada aplikasi WhatsApp.
+									Pesan yang berisi detail pesanan akan terbuat otomatis, kamu tinggal menekan tombol kirim chat pada aplikasi WhatsApp / Line.
 								</li>
 								<li>
 									Kami akan mengonfirmasi kembali ketersediaan stok, serta menginformasikan ongkos kirim, nomor rekening, dan total yang harus dibayarkan.

@@ -183,6 +183,7 @@ class Customer extends CI_Controller {
 		$shipping_address = $this->input->post('shipping_address');
 		$shipping_method = $this->input->post('shipping_method');
 		$checkout_items = $this->input->post('items');
+		$via = $this->input->post('via');
 		
 		$result = array();
 		
@@ -236,8 +237,21 @@ class Customer extends CI_Controller {
 				
 				$free_ongkir = $this->ongkir_setting_model->calculate_free_value($ongkir_setting, $order_value);
 				$free_ongkir = $this->text_renderer->to_rupiah($free_ongkir);
-				$whatsapp_message = $this->message_generator->order_whatsapp($customer_name, $shipping_address, $shipping_method, $free_ongkir, $items);
-				$result['whatsapp_message'] = $whatsapp_message;
+				
+				if ($via == "whatsapp")
+				{
+					$generated_message = $this->message_generator->order_whatsapp($customer_name, $shipping_address, $shipping_method, $free_ongkir, $items);
+					$result['generated_message'] = $generated_message;
+				}
+				else if ($via == "line_at")
+				{
+					$generated_message = $this->message_generator->order_line_at($customer_name, $shipping_address, $shipping_method, $free_ongkir, $items);
+					$result['generated_message'] = $generated_message;
+				}
+				else
+				{
+					$result['err'] = 2;
+				}
 			}
 		}
 		
@@ -252,5 +266,11 @@ class Customer extends CI_Controller {
 	{
 		$message = $this->input->post('message');
 		redirect('https://wa.me/'.WHATSAPP_NUMBER.'?text='.$message);
+	}
+	
+	public function send_to_line_at()
+	{
+		$message = $this->input->post('message');
+		redirect('line://oaMessage/'.LINE_AT_ID.'/?'.$message);
 	}
 }

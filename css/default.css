@@ -55,3 +55,11 @@ html {
 .btn.bg-semilight:hover {
 	background-color: #CCCCCC;
 }
+
+.bg-line_at {
+	background-color: #4AD138;
+}
+
+.btn.bg-line_at:hover {
+	background-color: #29AF16;
+}

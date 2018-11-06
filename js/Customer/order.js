@@ -194,8 +194,12 @@ function load_checkout() {
 					element.find("[name='free_ongkir']").val(result.summary.free_ongkir);
 					element.find("[name='free_ongkir_str']").html(result.summary.free_ongkir_str);
 	
-					element.find("[name='btn_order']").on("click", function(){
-						order_do();
+					element.find("[name='btn_order_whatsapp']").on("click", function(){
+						order_do_whatsapp();
+					});
+	
+					element.find("[name='btn_order_line_at']").on("click", function(){
+						order_do_line_at();
 					});
 	
 					element.find("[name='btn_back']").on("click", function(){
@@ -223,7 +227,15 @@ function load_help() {
 	});
 }
 
-function order_do() {
+function order_do_whatsapp() {
+	order_do("whatsapp");
+}
+
+function order_do_line_at() {
+	order_do("line_at");
+}
+
+function order_do(via) {
 	var order_items = [];
 	$("#form_checkout [name='item']").each(function(i){
 		var item_quantity = parseInt($(this).find("[name=item_quantity]").html());
@@ -256,15 +268,21 @@ function order_do() {
 				customer_name: customer_name,
 				shipping_address: shipping_address,
 				shipping_method: shipping_method,
-				items: order_items
+				items: order_items,
+				via: via
 			},
 			success: function(result) {
 				if (result.err == 0) {
-					
-					send_to_whatsapp(result.whatsapp_message);
+					if (via == "whatsapp") {
+						send_to_whatsapp(result.generated_message);
+					} else if (via == "line_at") {
+						send_to_line_at(result.generated_message);
+					}
 					
 				} else if (result.err == 1) {
 					alert('Server error');
+				} else if (result.err == 2) {
+					alert('Data error');
 				}
 			}
 		});
@@ -274,6 +292,11 @@ function order_do() {
 function send_to_whatsapp(message) {
 	$("#form_send_to_whatsapp [name=message]").val(message);
 	$("#form_send_to_whatsapp").submit();
+}
+
+function send_to_line_at(message) {
+	$("#form_send_to_line_at [name=message]").val(message);
+	$("#form_send_to_line_at").submit();
 }
 
 function process_item_is_habis(item_id, item_stock) {

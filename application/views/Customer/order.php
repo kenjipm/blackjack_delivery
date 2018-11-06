@@ -3,8 +3,8 @@
 		<div class="p-0 h-100 w-100 d-table" id="order_main">
 			<div class="d-table-row row-fit">
 				<div class="d-table-cell">
-					<div class="row">
-						<div class="col">
+					<div class="">
+						<div class="col-12 nopadding">
 							<nav class="navbar navbar-expand navbar-light bg-semilight">
 								<div class="col-12">
 									<div class="row">

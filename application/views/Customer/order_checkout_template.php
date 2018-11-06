@@ -74,11 +74,14 @@
 			<div class="d-table-row row-fit">
 				<div class="d-table-cell align-bottom">
 					<div class="row nopadding">
-						<nav class="navbar navbar-expand navbar-light bg-success col-md-12 col-6 nopadding">
-							<button name="btn_order" type="button" class="btn btn-success btn-lg w-100 h-100"><small>Pesan via WhatsApp</small></button>
+						<nav class="navbar navbar-expand navbar-light bg-success col-5 col-md-6 nopadding">
+							<button name="btn_order_whatsapp" type="button" class="btn btn-success btn-lg w-100 h-100"><small class="small"><small>Pesan via WhatsApp</small></small></button>
 						</nav>
-						<nav class="navbar navbar-expand navbar-light bg-semilight col-6 d-sm-block d-md-none nopadding">
-							<button name="btn_back" type="button" class="btn btn-default btn-lg bg-semilight w-100 h-100">Kembali</button>
+						<nav class="navbar navbar-expand navbar-light bg-success col-4 col-md-6 nopadding">
+							<button name="btn_order_line_at" type="button" class="btn btn-success btn-lg bg-line_at w-100 h-100"><small class="small"><small>Pesan via Line</small></small></button>
+						</nav>
+						<nav class="navbar navbar-expand navbar-light bg-semilight col-3 d-sm-block d-md-none nopadding">
+							<button name="btn_back" type="button" class="btn btn-default btn-lg bg-semilight w-100 h-100"><small class="small"><small>Kembali</small></small></button>
 						</nav>
 					</div>
 				</div>
@@ -86,6 +89,9 @@
 		</div>
 	</form>
 	<form action="<?=site_url('customer/send_to_whatsapp')?>" method="post" id="form_send_to_whatsapp">
+		<input type="hidden" name="message" />
+	</form>
+	<form action="<?=site_url('customer/send_to_line_at')?>" method="post" id="form_send_to_line_at">
 		<input type="hidden" name="message" />
 	</form>
 </div>
