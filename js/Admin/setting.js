@@ -47,7 +47,7 @@ function prepare_second_frame() {
 
 function back_to_first_frame() {
 	scrollTop();
-	$("#second_frame").hide();
+	$("#second_frame").hide(500);
 }
 
 function load_item_list(search_terms="") {
@@ -70,6 +70,22 @@ function load_item_list(search_terms="") {
 					element.find("[name='item_price']").val(item.price);
 					element.find("[name='item_name']").html(item.name);
 					element.find("[name='item_stock']").val(item.stock);
+					
+					element.find("[name='item_is_new']").val(item.is_new);
+					process_item_is_new(item.id, item.is_new);
+					element.find("[name='badge_item_is_new']").on("click", function() {
+						var item_is_new = parseInt(element.find("[name='item_is_new']").val());
+						element.find("[name='item_is_new']").val((item_is_new + 1) % 2);
+						set_item_is_new_do(item.id);
+					});
+					
+					element.find("[name='item_is_best_seller']").val(item.is_best_seller);
+					process_item_is_best_seller(item.id, item.is_best_seller);
+					element.find("[name='badge_item_is_best_seller']").on("click", function() {
+						var item_is_best_seller = parseInt(element.find("[name='item_is_best_seller']").val());
+						element.find("[name='item_is_best_seller']").val((item_is_best_seller + 1) % 2);
+						set_item_is_best_seller_do(item.id);
+					});
 					
 					element.find("[name='btn_edit']").on("click", function(){
 						prepare_second_frame();
@@ -128,6 +144,8 @@ function load_item_detail(item_id) {
 				element.find("[name='item_name']").val(result.item.name);
 				element.find("[name='item_sub_name_1']").val(result.item.sub_name_1);
 				element.find("[name='item_sub_name_2']").val(result.item.sub_name_2);
+				element.find("[name='item_is_new']").prop("checked", result.item.is_new == "1");
+				element.find("[name='item_is_best_seller']").prop("checked", result.item.is_best_seller == "1");
 				element.find("[name='item_price']").val(result.item.price);
 				element.find("[name='item_stock']").val(result.item.stock);
 				element.find("[name='item_description_long']").val(result.item.description_long);
@@ -240,6 +258,68 @@ function save_item_do(item_id) {
 	});
 }
 
+function set_item_is_new_do(item_id) {
+	var item_is_new = $("#item_list [name='item'][item_id=" + item_id + "] [name='item_is_new']").val();
+	
+	$.ajax({
+		type: "POST",
+		url: base_url + "/Admin/set_item_is_new_do/",
+		data:
+		{
+			item_id: item_id,
+			item_is_new: item_is_new
+		},
+		success: function(result) {
+			if (result.err == 0) {
+				process_item_is_new(item_id, item_is_new);
+			} else if (result.err == 1) {
+				alert("Gagal mengubah data, silakan coba lagi");
+			}
+		}
+	});
+}
+
+function process_item_is_new(item_id, item_is_new) {
+	if (item_is_new == "1") {
+		$("#item_list [name='item'][item_id=" + item_id + "] [name=badge_item_is_new]").removeClass("badge-secondary");
+		$("#item_list [name='item'][item_id=" + item_id + "] [name=badge_item_is_new]").addClass("badge-primary");
+	} else {
+		$("#item_list [name='item'][item_id=" + item_id + "] [name=badge_item_is_new]").addClass("badge-secondary");
+		$("#item_list [name='item'][item_id=" + item_id + "] [name=badge_item_is_new]").removeClass("badge-primary");
+	}
+}
+
+function set_item_is_best_seller_do(item_id) {
+	var item_is_best_seller = $("#item_list [name='item'][item_id=" + item_id + "] [name='item_is_best_seller']").val();
+	
+	$.ajax({
+		type: "POST",
+		url: base_url + "/Admin/set_item_is_best_seller_do/",
+		data:
+		{
+			item_id: item_id,
+			item_is_best_seller: item_is_best_seller
+		},
+		success: function(result) {
+			if (result.err == 0) {
+				process_item_is_best_seller(item_id, item_is_best_seller);
+			} else if (result.err == 1) {
+				alert("Gagal mengubah data, silakan coba lagi");
+			}
+		}
+	});
+}
+
+function process_item_is_best_seller(item_id, item_is_best_seller) {
+	if (item_is_best_seller == "1") {
+		$("#item_list [name='item'][item_id=" + item_id + "] [name=badge_item_is_best_seller]").removeClass("badge-secondary");
+		$("#item_list [name='item'][item_id=" + item_id + "] [name=badge_item_is_best_seller]").addClass("badge-danger");
+	} else {
+		$("#item_list [name='item'][item_id=" + item_id + "] [name=badge_item_is_best_seller]").addClass("badge-secondary");
+		$("#item_list [name='item'][item_id=" + item_id + "] [name=badge_item_is_best_seller]").removeClass("badge-danger");
+	}
+}
+
 function update_item_do() {
 	var form_data = new FormData($("#form_setting_item_detail")[0]);
 	$.ajax({
@@ -293,26 +373,25 @@ function tambah_item_do() {
 }
 
 function delete_item_do(item_id) {
-	$.ajax({
-		type: "POST",
-		url: base_url + "/Admin/delete_item_do/",
-		data:
-		{
-			item_id: item_id
-		},
-		success: function(result) {
-			if (result.err == 0) {
-				$("#form_tambah_item_detail [name='success_message']").html("Item berhasil dihapus");
-				$("#form_tambah_item_detail [name='failure_message']").html("");
-			} else if (result.err == 1) {
-				$("#form_tambah_item_detail [name='success_message']").html("");
-				$("#form_tambah_item_detail [name='failure_message']").html("Item gagal dihapus");
+	if (confirm("Hapus barang ini?")) {
+		$.ajax({
+			type: "POST",
+			url: base_url + "/Admin/delete_item_do/",
+			data:
+			{
+				item_id: item_id
+			},
+			success: function(result) {
+				if (result.err == 0) {
+					$("#form_setting_item_detail [name='success_message']").html("Item berhasil dihapus");
+					$("#form_setting_item_detail [name='failure_message']").html("");
+				} else if (result.err == 1) {
+					$("#form_setting_item_detail [name='success_message']").html("");
+					$("#form_setting_item_detail [name='failure_message']").html("Item gagal dihapus");
+				}
 			}
-		},
-        cache: false,
-        contentType: false,
-        processData: false
-	});
+		});
+	}
 }
 
 function atur_ongkir_do() {

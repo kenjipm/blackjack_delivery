@@ -9,8 +9,17 @@
 			</div>
 			<div class="col-9">
 				<div class="row">
-					<div class="col-12"><h6 name="item_name"></h6></div>
-					<div class="col-12" name="item_price_str"></div>
+					<div class="col-7 col-md-12 col-xl-8">
+						<h6 name="item_name"></h6>
+						<div name="item_price_str"></div>
+					</div>
+					<div class="col-5 col-md-12 col-xl-4 text-right">
+						<span class="badge badge-primary" name="badge_item_is_new">NEW</span>
+						<span class="badge badge-danger" name="badge_item_is_best_seller">BEST SELLER</span>
+						<span class="badge badge-warning" name="badge_item_is_habis">HABIS</span>
+					</div>
+				</div>
+				<div class="row">
 					<div class="col-12"><small class="text-muted" name="item_description_long"></small></div>
 				</div>
 				<div class="row justify-content-end">

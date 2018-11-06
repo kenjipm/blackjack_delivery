@@ -2,9 +2,19 @@
 	<li name="item" class="list-group-item">
 		<form>
 			<input type="hidden" name="item_id"/>
+			<input type="hidden" name="item_is_new"/>
+			<input type="hidden" name="item_is_best_seller"/>
 			<div class="row">
-				<div class="col-10 col-sm-10 col-md-8 col-xl-10">
+				<div class="col-6 col-sm-6 col-md-4 col-xl-6">
 					<label class="control-label"><h6 name="item_name"></h6></label>
+				</div>
+				<div class="col-4 col-sm-4 col-md-4 col-xl-4 nopadding">
+					<div class="row nopadding">
+						<div class="col-12 nopadding">
+							<a href="#" class="badge badge-primary" name="badge_item_is_new">NEW</a>
+							<a href="#" class="badge badge-danger" name="badge_item_is_best_seller">BEST SELLER</a>
+						</div>
+					</div>
 				</div>
 				<div class="col-2 col-sm-2 col-md-4 col-xl-2">
 					<button type="button" class="btn btn-warning col-12" name="btn_edit">

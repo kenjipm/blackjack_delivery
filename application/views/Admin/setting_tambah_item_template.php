@@ -16,7 +16,7 @@
 				<div class="d-table-cell">
 					<div class="position-relative h-100 overflow-y-auto">
 						<div class="col-md-12 col-lg-6">
-							<div class="form-group">
+							<div class="form-group mt-2">
 								<label for="item_image_file" class="control-label">
 									<img alt="" src="" class="img-fluid rounded pb-2" name="item_image"/>
 									<span class="btn btn-success" id="btn_upload_photo">Upload Foto</span>
@@ -39,6 +39,18 @@
 								<label for="item_description_long" class="control-label">Deskripsi</label>
 								<textarea class="form-control" name="item_description_long"></textarea>
 							</div>
+							<div class="form-group form-check">
+								<div class="row">
+									<div class="col-auto">
+										<input type="checkbox" class="form-check-input" id="item_is_new" name="item_is_new" value="1">
+										<label class="form-check-label" for="item_is_new">Baru</label>
+									</div>
+									<div class="col-auto">
+										<input type="checkbox" class="form-check-input" id="item_is_best_seller" name="item_is_best_seller" value="1">
+										<label class="form-check-label" for="item_is_best_seller">Best Seller</label>
+									</div>
+								</div>
+							</div>
 							<div class="form-group">
 								<label for="item_price" class="control-label">Harga</label>
 								<input type="text" class="form-control" name="item_price"/>
@@ -58,10 +70,10 @@
 							<div class="txt-success" name="success_message"></div>
 							<div class="txt-danger" name="failure_message"></div>
 						</div>
-						<nav class="navbar navbar-expand navbar-light bg-success w-50 nopadding">
+						<nav class="navbar navbar-expand navbar-light bg-success col-6 col-md-12 nopadding">
 							<button type="button" name="btn_save" class="btn btn-success btn-lg w-100" id="btn_save">Tambah</button>
 						</nav>
-						<nav class="navbar navbar-expand navbar-light bg-semilight w-50 nopadding">
+						<nav class="navbar navbar-expand navbar-light bg-semilight col-6 d-sm-block d-md-none nopadding">
 							<button type="button" name="btn_back" class="btn btn-default btn-lg bg-semilight w-100" id="btn_back">Kembali</button>
 						</nav>
 					</div>

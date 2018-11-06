@@ -173,6 +173,8 @@ class Admin extends CI_Controller {
 		$item['sub_name_1'] = $this->input->post('item_sub_name_1');
 		$item['sub_name_2'] = $this->input->post('item_sub_name_2');
 		$item['description_long'] = $this->input->post('item_description_long');
+		$item['is_new'] = $this->input->post('item_is_new') ?? 0;
+		$item['is_best_seller'] = $this->input->post('item_is_best_seller') ?? 0;
 		$item['price'] = $this->input->post('item_price');
 		$item['stock'] = $this->input->post('item_stock');
 		
@@ -219,6 +221,8 @@ class Admin extends CI_Controller {
 		$item['sub_name_1'] = $this->input->post('item_sub_name_1');
 		$item['sub_name_2'] = $this->input->post('item_sub_name_2');
 		$item['description_long'] = $this->input->post('item_description_long');
+		$item['is_new'] = $this->input->post('item_is_new') ?? 0;
+		$item['is_best_seller'] = $this->input->post('item_is_best_seller') ?? 0;
 		$item['price'] = $this->input->post('item_price');
 		$item['stock'] = $this->input->post('item_stock');
 		
@@ -261,6 +265,52 @@ class Admin extends CI_Controller {
 		$item['id'] = $this->input->post('item_id');
 		$item['price'] = $this->input->post('item_price');
 		$item['stock'] = $this->input->post('item_stock');
+		
+		$this->load->model('item_model');
+		$query_result = $this->item_model->update($item);
+		
+		if (!$query_result)
+		{
+			$result['err'] = 1;
+		}
+		
+		header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+		header("Cache-Control: post-check=0, pre-check=0", false);
+		header("Pragma: no-cache");
+		header("Content-Type: application/json; charset=utf-8");
+		echo json_encode($result);
+	}
+	
+	public function set_item_is_new_do()
+	{
+		$result['err'] = 0;
+		
+		$item = array();
+		$item['id'] = $this->input->post('item_id');
+		$item['is_new'] = $this->input->post('item_is_new');
+		
+		$this->load->model('item_model');
+		$query_result = $this->item_model->update($item);
+		
+		if (!$query_result)
+		{
+			$result['err'] = 1;
+		}
+		
+		header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+		header("Cache-Control: post-check=0, pre-check=0", false);
+		header("Pragma: no-cache");
+		header("Content-Type: application/json; charset=utf-8");
+		echo json_encode($result);
+	}
+	
+	public function set_item_is_best_seller_do()
+	{
+		$result['err'] = 0;
+		
+		$item = array();
+		$item['id'] = $this->input->post('item_id');
+		$item['is_best_seller'] = $this->input->post('item_is_best_seller');
 		
 		$this->load->model('item_model');
 		$query_result = $this->item_model->update($item);

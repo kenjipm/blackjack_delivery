@@ -3,6 +3,7 @@ $(document).ready(function(){
 	bind_btn_search();
 	load_item_list();
 	bind_btn_hitung();
+	bind_btn_help();
 });
 
 function bind_search_input() {
@@ -14,8 +15,15 @@ function bind_search_input() {
 }
 
 function bind_btn_hitung() {
-	$("#btn_hitung").on("click", function(){
+	$("#btn_hitung, #btn_hitung-2").on("click", function(){
 		load_checkout();
+	});
+}
+
+function bind_btn_help() {
+	$("#btn_help").on("click", function(){
+		prepare_second_frame();
+		load_help();
 	});
 }
 
@@ -38,7 +46,7 @@ function prepare_second_frame() {
 
 function back_to_first_frame() {
 	scrollTop();
-	$("#second_frame").hide();
+	$("#second_frame").hide(500);
 }
 
 function load_item_list(search_terms="") {
@@ -70,16 +78,28 @@ function load_item_list(search_terms="") {
 						load_item_detail(item.id);
 					});
 					
+					process_item_is_habis(item.id, item.stock);
+					process_item_is_new(item.id, item.is_new);
+					process_item_is_best_seller(item.id, item.is_best_seller);
+					
+					function check_add_quantity() { // disable kalo quantity lebih besar
+						element.find("[name=button-add-quantity]").prop("disabled", (cur_quantity >= max_quantity));
+						element.find("[name=button-minus-quantity]").prop("disabled", (cur_quantity <= 0));
+					}
+					
+					var cur_quantity = parseInt(element.find("[name='item_quantity']").val());
 					element.find("[name=button-minus-quantity]").on("click", function(){
-						var cur_quantity = parseInt(element.find("[name='item_quantity']").val());
-						if (cur_quantity > 0) element.find("[name='item_quantity']").val(cur_quantity - 1);
+						if (cur_quantity > 0) element.find("[name='item_quantity']").val(--cur_quantity);
+						check_add_quantity();
 					});
 					
+					var max_quantity = parseInt(item.stock);
 					element.find("[name=button-add-quantity]").on("click", function(){
-						var cur_quantity = parseInt(element.find("[name='item_quantity']").val());
-						var max_quantity = parseInt(item.stock);
-						if (cur_quantity < max_quantity) element.find("[name='item_quantity']").val(cur_quantity + 1);
+						if (cur_quantity < max_quantity) element.find("[name='item_quantity']").val(++cur_quantity);
+						check_add_quantity();
 					});
+					
+					check_add_quantity();
 				});
 			} else if (result.err == 1) {
 				alert('Server error');
@@ -190,6 +210,18 @@ function load_checkout() {
 	}
 }
 
+function load_help() {
+	$("#order_detail").html("");
+	
+	var template = $("[name='order_help_template']").html();
+	$(template).appendTo("#order_detail");
+	var element = $("#order_detail");
+	
+	element.find("[name='btn_back']").on("click", function(){
+		back_to_first_frame();
+	});
+}
+
 function order_do() {
 	var order_items = [];
 	$("#form_checkout [name='item']").each(function(i){
@@ -206,7 +238,15 @@ function order_do() {
 	var shipping_address = $("#form_checkout [name='shipping_address']").val();
 	var shipping_method = $("#form_checkout [name='shipping_method']").val();
 	
-	if (order_items.length > 0) {
+	if (customer_name == "") {
+		alert("Silakan masukkan nama");
+	}
+	else if (shipping_address == "") {
+		alert("Silakan masukkan alamat kirim");
+	}
+	else if (order_items.length <= 0) {
+		alert("Silakan pilih barang yang mau dipesan terlebih dahulu");
+	} else {
 		$.ajax({
 			type: "POST",
 			url: base_url + "/Customer/order_do/",
@@ -227,12 +267,28 @@ function order_do() {
 				}
 			}
 		});
-	} else {
-		alert("Silakan pilih barang yang mau dipesan terlebih dahulu");
 	}
 }
 
 function send_to_whatsapp(message) {
 	$("#form_send_to_whatsapp [name=message]").val(message);
 	$("#form_send_to_whatsapp").submit();
+}
+
+function process_item_is_habis(item_id, item_stock) {
+	if (item_stock > 0) {
+		$("#item_list [name='item'][item_id=" + item_id + "] [name=badge_item_is_habis]").hide();
+	}
+}
+
+function process_item_is_new(item_id, item_is_new) {
+	if (item_is_new == "0") {
+		$("#item_list [name='item'][item_id=" + item_id + "] [name=badge_item_is_new]").hide();
+	}
+}
+
+function process_item_is_best_seller(item_id, item_is_best_seller) {
+	if (item_is_best_seller == "0") {
+		$("#item_list [name='item'][item_id=" + item_id + "] [name=badge_item_is_best_seller]").hide();
+	}
 }

@@ -5,7 +5,7 @@
 				<div class="d-table-cell">
 					<div class="row">
 						<div class="col">
-							<nav class="navbar navbar-expand navbar-light bg-semilight row">
+							<nav class="navbar navbar-expand navbar-light bg-semilight">
 								<div class="col-12">
 									<div class="row">
 										<div class="col-2">

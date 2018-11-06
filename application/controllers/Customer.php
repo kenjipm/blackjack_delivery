@@ -32,6 +32,7 @@ class Customer extends CI_Controller {
 		$this->load->view('Customer/order_item_list_template');
 		$this->load->view('Customer/order_item_detail_template');
 		$this->load->view('Customer/order_checkout_template');
+		$this->load->view('Customer/order_help_template');
 		
 		// Load Footer
 		$this->load->view('footer');
@@ -149,7 +150,11 @@ class Customer extends CI_Controller {
 		{
 			$this->load->model('ongkir_setting_model');
 			$ongkir_setting = $this->ongkir_setting_model->get_last();
-			$free_ongkir = $this->ongkir_setting_model->calculate_free_value($ongkir_setting, $result['summary']['subtotal']);
+			$free_ongkir = 0;
+			if ($ongkir_setting != null)
+			{
+				$free_ongkir = $this->ongkir_setting_model->calculate_free_value($ongkir_setting, $result['summary']['subtotal']);
+			}
 			$result['summary']['free_ongkir'] = $free_ongkir;
 			$result['summary']['free_ongkir_str'] = $this->text_renderer->to_rupiah($free_ongkir);
 			
@@ -218,6 +223,9 @@ class Customer extends CI_Controller {
 				$order_items[$i]['price'] = $item->price;
 				
 				$order_value += $checkout_item['quantity'] * $item->price;
+				
+				// kurangi stoknya
+				$this->item_model->add_stock($item->id, -$checkout_item['quantity']);
 			}
 			$query_result = $this->order_item_model->insert_batch($order_items);
 			

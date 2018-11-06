@@ -31,7 +31,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="d-table-row row-fit">
+		<div class="d-table-row row-fit d-sm-block d-md-none">
 			<div class="d-table-cell align-bottom">
 				<div class="row nopadding">
 					<nav class="navbar navbar-expand navbar-light bg-semilight w-100 nopadding">

@@ -3,7 +3,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 
 defined('COMPANY_NAME') OR define('COMPANY_NAME', 'BlackJack Delivery');
-defined('WHATSAPP_NUMBER') OR define('WHATSAPP_NUMBER', '6289610083002');
+// defined('WHATSAPP_NUMBER') OR define('WHATSAPP_NUMBER', '6289610083002');
+defined('WHATSAPP_NUMBER') OR define('WHATSAPP_NUMBER', '628996900969');
 
 /*
 |--------------------------------------------------------------------------

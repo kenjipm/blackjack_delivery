@@ -44,26 +44,28 @@
 			</div>
 			<div class="d-table-row row-fit">
 				<div class="d-table-cell align-bottom">
-					<div class="form-group">
-						<label for="customer_name">Nama</label>
-						<input type="text" class="form-control" name="customer_name" placeholder="Nama...">
-					</div>
-					<div class="form-group">
-						<label for="shipping_address">Alamat Kirim</label>
-						<input type="text" class="form-control" name="shipping_address" placeholder="Alamat Kirim...">
-					</div>
-					<div class="form-group">
-						<div class="row">
-							<label for="shipping_method" class="col-2 col-md-1 text-right">via</label>
-							<div class="col-4 col-md-3">
-								<select class="form-control" name="shipping_method">
-									<option value="GOJEK" selected>Go-Jek</option>
-									<option value="TIKI">TIKI</option>
-									<option value="JnT">J&T </option>
-								</select>
-							</div>
-							<div class="col-6 col-md-8">
-								<small>Go-Jek hanya untuk wilayah Bandung</small>
+					<div class="col-12">
+						<div class="form-group">
+							<label for="customer_name">Nama</label>
+							<input type="text" class="form-control" name="customer_name" placeholder="Nama...">
+						</div>
+						<div class="form-group">
+							<label for="shipping_address">Alamat Kirim Lengkap</label>
+							<input type="text" class="form-control" name="shipping_address" placeholder="Alamat Kirim...">
+						</div>
+						<div class="form-group">
+							<div class="row">
+								<label for="shipping_method" class="col-2 col-md-1 text-right">via</label>
+								<div class="col-4 col-md-3">
+									<select class="form-control" name="shipping_method">
+										<option value="GOJEK" selected>Go-Jek</option>
+										<option value="TIKI">TIKI</option>
+										<option value="JnT">J&T </option>
+									</select>
+								</div>
+								<div class="col-6 col-md-8">
+									<small>Go-Jek hanya untuk wilayah Bandung</small>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -72,10 +74,10 @@
 			<div class="d-table-row row-fit">
 				<div class="d-table-cell align-bottom">
 					<div class="row nopadding">
-						<nav class="navbar navbar-expand navbar-light bg-success w-50 nopadding">
+						<nav class="navbar navbar-expand navbar-light bg-success col-md-12 col-6 nopadding">
 							<button name="btn_order" type="button" class="btn btn-success btn-lg w-100 h-100">Pesan via WhatsApp</button>
 						</nav>
-						<nav class="navbar navbar-expand navbar-light bg-semilight w-50 nopadding">
+						<nav class="navbar navbar-expand navbar-light bg-semilight col-6 d-sm-block d-md-none nopadding">
 							<button name="btn_back" type="button" class="btn btn-default btn-lg bg-semilight w-100 h-100">Kembali</button>
 						</nav>
 					</div>
