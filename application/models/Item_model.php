@@ -36,6 +36,7 @@ class Item_model extends CI_Model {
 			$search_terms = explode(" ", $search_terms);
 			foreach ($search_terms as $search_term)
 			{
+				$search_term = $this->db->escape_like_str($search_term);
 				$query_str .= " AND (
 					name LIKE '%$search_term%' OR
 					sub_name_1 LIKE '%$search_term%' OR

@@ -50,7 +50,8 @@ function back_to_first_frame() {
 	$("#second_frame").hide(500);
 }
 
-function load_item_list(search_terms="") {
+function load_item_list(search_terms) {
+	if (search_terms == undefined) search_terms = "";
 	$.ajax({
 		type: "POST",
 		url: base_url + "/Admin/load_item_list/",
