@@ -77,7 +77,7 @@
 						<nav class="navbar navbar-expand navbar-light bg-success col-5 col-md-6 nopadding">
 							<button name="btn_order_whatsapp" type="button" class="btn btn-success btn-lg w-100 h-100"><small class="small"><small>Pesan via WhatsApp</small></small></button>
 						</nav>
-						<nav class="navbar navbar-expand navbar-light bg-success col-4 col-md-6 nopadding">
+						<nav class="navbar navbar-expand navbar-light bg-line_at col-4 col-md-6 nopadding">
 							<button name="btn_order_line_at" type="button" class="btn btn-success btn-lg bg-line_at w-100 h-100"><small class="small"><small>Pesan via Line</small></small></button>
 						</nav>
 						<nav class="navbar navbar-expand navbar-light bg-semilight col-3 d-sm-block d-md-none nopadding">

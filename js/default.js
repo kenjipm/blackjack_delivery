@@ -46,7 +46,7 @@ function scrollBottom() {
 	}, 500);
 }
 
-function scrollTo(elementSelector) {
+function scrollToElement(elementSelector) {
 	$('html, body').animate({
 		scrollTop: $(elementSelector).offset().top - $("html, body").offset().top + $("html, body").scrollTop()
 	}, 500);

@@ -42,7 +42,7 @@ function clear_item_list() {
 
 function prepare_second_frame() {
 	$("#second_frame").show();
-	scrollTo("#second_frame");
+	scrollToElement("#second_frame");
 }
 
 function back_to_first_frame() {

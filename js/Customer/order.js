@@ -41,7 +41,7 @@ function clear_item_list() {
 
 function prepare_second_frame() {
 	$("#second_frame").show();
-	scrollTo("#second_frame");
+	scrollToElement("#second_frame");
 }
 
 function back_to_first_frame() {
@@ -157,7 +157,7 @@ function load_checkout() {
 	});
 	
 	if (order_items.length > 0) {
-		scrollTo("#order_detail");
+		scrollToElement("#order_detail");
 		$.ajax({
 			type: "POST",
 			url: base_url + "/Customer/load_checkout_summary/",

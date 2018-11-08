@@ -5,7 +5,7 @@ $(document).ready(function(){
 
 function bind_btn_hitung() {
 	$("#btn_hitung").on("click", function(){
-		scrollTo("#order_detail");
+		scrollToElement("#order_detail");
 		load_checkout();
 	});
 }
@@ -40,7 +40,7 @@ function load_item_list() {
 					element.find("[name='item_stock" + "[" + i + "]']").val(item.stock);
 					
 					element.find("[name='item_image" + "[" + i + "]'], [name='item_name" + "[" + i + "]'], [name='item_description_long" + "[" + i + "]'], [name='item_price_str" + "[" + i + "]']").on("click", function(){
-						scrollTo("#order_detail");
+						scrollToElement("#order_detail");
 						load_item_detail(item.id);
 					});
 					
