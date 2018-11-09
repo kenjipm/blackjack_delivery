@@ -300,6 +300,6 @@ class Customer extends CI_Controller {
 		$this->load->model('variables_model');
 		$variables = $this->variables_model->get('line_at_id');
 		
-		redirect('line://oaMessage/'.$variables->line_at_id.'/?'.$message);
+		redirect('line://oaMessage/@'.$variables->line_at_id.'/?'.$message);
 	}
 }

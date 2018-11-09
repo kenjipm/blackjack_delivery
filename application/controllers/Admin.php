@@ -63,7 +63,7 @@ class Admin extends CI_Controller {
 		}
 		$data['return_url'] = $this->input->get('return_url') ?? "";
 		$data['model'] = new class{};
-		$this->load->view('Admin/Login', $data);
+		$this->load->view('Admin/login', $data);
 		
 		// Load Footer
 		$this->load->view('footer');
@@ -379,7 +379,7 @@ class Admin extends CI_Controller {
 		{
 			if (time() <= $this->session->blocked_until)
 			{
-				redirect('Admin/Login?err=5');
+				redirect('Admin/login?err=5');
 			}
 		}
 		
@@ -401,7 +401,7 @@ class Admin extends CI_Controller {
 			$this->session->fail_count = 0;
 			// if ($user->is_blocked())
 			// {
-				// redirect('Admin/Login?err=6');
+				// redirect('Admin/login?err=6');
 			// }
 			
 			$userdata = array(
@@ -427,13 +427,13 @@ class Admin extends CI_Controller {
 			$this->session->blocked_until = time() + (5 * 60); // 5 menit dari sekarang
 		}
 		
-		redirect('Admin/Login?err=1');
+		redirect('Admin/login?err=1');
 	}
 	
 	public function logout()
 	{
 		$this->session->sess_destroy();
-		redirect('Admin/Login');
+		redirect('Admin/login');
 	}
 	
 	private function get_error_message($error_code)

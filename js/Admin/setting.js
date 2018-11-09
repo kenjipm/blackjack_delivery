@@ -107,15 +107,22 @@ function load_item_list(search_terms) {
 						element.find("[name='btn_save']").prop("disabled", false);
 					});
 					
+					function check_min_stock() { // disable kalo quantity 0
+						element.find("[name=button-minus-stock]").prop("disabled", (cur_quantity <= 0));
+					}
+					
+					var cur_quantity = parseInt(element.find("[name='item_stock']").val());
 					element.find("[name=button-minus-stock]").on("click", function(){
-						var cur_quantity = parseInt(element.find("[name='item_stock']").val());
-						element.find("[name='item_stock']").val(cur_quantity - 1);
+						if (cur_quantity > 0) element.find("[name='item_stock']").val(--cur_quantity);
+						check_min_stock();
 					});
 					
 					element.find("[name=button-add-stock]").on("click", function(){
-						var cur_quantity = parseInt(element.find("[name='item_stock']").val());
-						element.find("[name='item_stock']").val(cur_quantity + 1);
+						element.find("[name='item_stock']").val(++cur_quantity);
+						check_min_stock();
 					});
+					
+					check_min_stock();
 				});
 			} else if (result.err == 1) {
 				alert('Server error');
