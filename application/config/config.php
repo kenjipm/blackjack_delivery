@@ -23,7 +23,11 @@ date_default_timezone_set('Asia/Jakarta');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = '/blackjack_delivery';
+if(($_SERVER['SERVER_NAME'] == 'localhost') || ($_SERVER['SERVER_NAME'] == '[::1]')){
+    $config['base_url'] = '/blackjack_delivery';
+} else {
+    $config['base_url'] = '/';
+}
 
 /*
 |--------------------------------------------------------------------------

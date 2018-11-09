@@ -13,7 +13,7 @@ function bind_btn_hitung() {
 function load_item_list() {
 	$.ajax({
 		type: "POST",
-		url: base_url + "/Customer/load_order_item_list/",
+		url: "Customer/load_order_item_list/",
 		data:
 		{
 			
@@ -65,7 +65,7 @@ function load_item_list() {
 function load_item_detail(item_id) {
 	$.ajax({
 		type: "POST",
-		url: base_url + "/Customer/load_order_item_detail/",
+		url: "Customer/load_order_item_detail/",
 		data:
 		{
 			id: item_id
@@ -95,7 +95,7 @@ function load_checkout() {
 	
 	$.ajax({
 		type: "POST",
-		url: base_url + "/Customer/test/",
+		url: "Customer/test/",
 		data: $("#item_list_form").serialize(),
 		success: function(result) {
 			if (result.err == 0) {
@@ -117,7 +117,7 @@ function load_checkout() {
 			var item_id = $(this).find("[name=item_id]").val();
 			$.ajax({
 				type: "POST",
-				url: base_url + "/Customer/load_checkout_item_detail/",
+				url: "Customer/load_checkout_item_detail/",
 				data:
 				{
 					id: item_id,
@@ -150,7 +150,7 @@ function load_checkout() {
 	if (total_order > 0) { // kalau ada ordernya, baru proses
 		$.ajax({
 			type: "POST",
-			url: base_url + "/Customer/load_checkout_summary/",
+			url: "Customer/load_checkout_summary/",
 			data:
 			{
 				value: total_order

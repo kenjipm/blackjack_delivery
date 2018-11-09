@@ -75,10 +75,6 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
-	'username' => 'root',
-	'password' => '',
-	'database' => 'blackjack_delivery',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
@@ -94,3 +90,15 @@ $db['default'] = array(
 	'failover' => array(),
 	'save_queries' => TRUE
 );
+
+if($_SERVER['SERVER_NAME'] == 'blackjack.deliver.id'){
+  $db['default']['hostname'] = 'localhost';
+  $db['default']['username'] = 'u5524573_blackjack';
+  $db['default']['password'] = 'blowjob69!!';
+  $db['default']['database'] = 'u5524573_blackjack';
+} else {
+  $db['default']['hostname'] = 'localhost';
+  $db['default']['username'] = 'root';
+  $db['default']['password'] = '';
+  $db['default']['database'] = 'blackjack_delivery';
+}

@@ -31,8 +31,8 @@ class Customer extends CI_Controller {
 		// Load View Templates
 		$this->load->view('Customer/order_item_list_template');
 		$this->load->view('Customer/order_item_detail_template');
-		$this->load->view('Customer/order_checkout_template');
-		$this->load->view('Customer/order_help_template');
+		$this->load_order_checkout_template();
+		$this->load_order_help_template();
 		
 		// Load Footer
 		$this->load->view('footer');
@@ -173,6 +173,27 @@ class Customer extends CI_Controller {
 		$this->load->view('Customer/order_item_list_template');
 	}
 	
+	public function load_order_checkout_template()
+	{
+		$this->load->model('variables_model');
+		$variables = $this->variables_model->get('whatsapp_no, line_at_id');
+		
+		$view_data['is_whatsapp'] = ($variables->whatsapp_no != "");
+		$view_data['is_line_at'] = ($variables->line_at_id != "");
+		$view_data['is_empty'] = ($variables->whatsapp_no == "") && ($variables->line_at_id == "");
+		
+		$this->load->view('Customer/order_checkout_template', $view_data);
+	}
+	
+	public function load_order_help_template()
+	{
+		$this->load->model('variables_model');
+		$variables = $this->variables_model->get('help_title_1, help_content_1, help_title_2, help_content_2');
+		
+		$view_data['variables'] = $variables;
+		$this->load->view('Customer/order_help_template', $view_data);
+	}
+	
 	/********************
 	    ACTIONS
 	 ********************/
@@ -265,12 +286,20 @@ class Customer extends CI_Controller {
 	public function send_to_whatsapp()
 	{
 		$message = $this->input->post('message');
-		redirect('https://wa.me/'.WHATSAPP_NUMBER.'?text='.$message);
+		
+		$this->load->model('variables_model');
+		$variables = $this->variables_model->get('whatsapp_no');
+		
+		redirect('https://wa.me/'.$variables->whatsapp_no.'?text='.$message);
 	}
 	
 	public function send_to_line_at()
 	{
 		$message = $this->input->post('message');
-		redirect('line://oaMessage/'.LINE_AT_ID.'/?'.$message);
+		
+		$this->load->model('variables_model');
+		$variables = $this->variables_model->get('line_at_id');
+		
+		redirect('line://oaMessage/'.$variables->line_at_id.'/?'.$message);
 	}
 }

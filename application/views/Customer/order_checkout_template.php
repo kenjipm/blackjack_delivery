@@ -74,13 +74,27 @@
 			<div class="d-table-row row-fit">
 				<div class="d-table-cell align-bottom">
 					<div class="row nopadding">
-						<nav class="navbar navbar-expand navbar-light bg-success col-5 col-md-6 nopadding">
-							<button name="btn_order_whatsapp" type="button" class="btn btn-success btn-lg w-100 h-100"><small class="small"><small>Pesan via WhatsApp</small></small></button>
-						</nav>
-						<nav class="navbar navbar-expand navbar-light bg-line_at col-4 col-md-6 nopadding">
-							<button name="btn_order_line_at" type="button" class="btn btn-success btn-lg bg-line_at w-100 h-100"><small class="small"><small>Pesan via Line</small></small></button>
-						</nav>
-						<nav class="navbar navbar-expand navbar-light bg-semilight col-3 d-sm-block d-md-none nopadding">
+						<?php
+							if ($is_whatsapp)
+							{
+								?>
+								<nav class="navbar navbar-expand navbar-light bg-success <?= $is_line_at ? "col-5 col-md-12" : "col-9 col-md-12" ?> nopadding">
+									<button name="btn_order_whatsapp" type="button" class="btn btn-success btn-lg w-100 h-100"><small class="small"><small>Pesan via WhatsApp</small></small></button>
+								</nav>
+								<?php
+							}
+						?>
+						<?php
+							if ($is_line_at)
+							{
+								?>
+								<nav class="navbar navbar-expand navbar-light bg-line_at <?= $is_whatsapp ? "col-4 d-md-none" : "col-9 col-md-12" ?> nopadding">
+									<button name="btn_order_line_at" type="button" class="btn btn-success btn-lg bg-line_at w-100 h-100"><small class="small"><small>Pesan via Line</small></small></button>
+								</nav>
+								<?php
+							}
+						?>
+						<nav class="navbar navbar-expand navbar-light bg-semilight <?= $is_empty ? "col-12" : "col-3" ?> d-sm-block d-md-none nopadding">
 							<button name="btn_back" type="button" class="btn btn-default btn-lg bg-semilight w-100 h-100"><small class="small"><small>Kembali</small></small></button>
 						</nav>
 					</div>

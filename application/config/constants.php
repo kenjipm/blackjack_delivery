@@ -1,11 +1,8 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-
-defined('COMPANY_NAME') OR define('COMPANY_NAME', 'BlackJack Delivery');
-// defined('WHATSAPP_NUMBER') OR define('WHATSAPP_NUMBER', '6289610083002');
-defined('WHATSAPP_NUMBER') OR define('WHATSAPP_NUMBER', '628996900969');
-defined('LINE_AT_ID') OR define('LINE_AT_ID', '@bwv4791d'); // blackjack coffee
+defined('COMPANY_NAME_TEMPLATE') OR define('COMPANY_NAME_TEMPLATE', '[COMPANY_NAME]'); // blackjack coffee
+defined('ORDERS_TEMPLATE') OR define('ORDERS_TEMPLATE', '[ORDERS]'); // blackjack coffee
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +24,7 @@ defined('TABLE_CUSTOMER_ORDER') OR define('TABLE_CUSTOMER_ORDER', 'customer_orde
 defined('TABLE_ORDER_ITEM') OR define('TABLE_ORDER_ITEM', 'order_item');
 defined('TABLE_ADMIN') OR define('TABLE_ADMIN', 'admin');
 defined('TABLE_ONGKIR_SETTING') OR define('TABLE_ONGKIR_SETTING', 'ongkir_setting');
+defined('TABLE_VARIABLES') OR define('TABLE_VARIABLES', 'variables');
 
 
 /*

@@ -1,5 +1,3 @@
-var base_url = "/blackjack_delivery";
-
 $(document).ready(function(){
 	
 });

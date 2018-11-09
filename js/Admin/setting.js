@@ -54,7 +54,7 @@ function load_item_list(search_terms) {
 	if (search_terms == undefined) search_terms = "";
 	$.ajax({
 		type: "POST",
-		url: base_url + "/Admin/load_item_list/",
+		url: "Admin/load_item_list/",
 		data:
 		{
 			search_terms: search_terms
@@ -127,7 +127,7 @@ function load_item_list(search_terms) {
 function load_item_detail(item_id) {
 	$.ajax({
 		type: "POST",
-		url: base_url + "/Admin/load_item_detail/",
+		url: "Admin/load_item_detail/",
 		data:
 		{
 			id: item_id
@@ -212,7 +212,7 @@ function load_tambah_item() {
 function load_atur_ongkir(item_id) {
 	$.ajax({
 		type: "POST",
-		url: base_url + "/Admin/load_atur_ongkir/",
+		url: "Admin/load_atur_ongkir/",
 		data:
 		{
 			id: item_id
@@ -247,7 +247,7 @@ function load_atur_ongkir(item_id) {
 function save_item_do(item_id) {
 	$.ajax({
 		type: "POST",
-		url: base_url + "/Admin/save_item_do/",
+		url: "Admin/save_item_do/",
 		data: $("#item_list [name='item'][item_id=" + item_id + "] form").serialize(),
 		success: function(result) {
 			if (result.err == 0) {
@@ -264,7 +264,7 @@ function set_item_is_new_do(item_id) {
 	
 	$.ajax({
 		type: "POST",
-		url: base_url + "/Admin/set_item_is_new_do/",
+		url: "Admin/set_item_is_new_do/",
 		data:
 		{
 			item_id: item_id,
@@ -295,7 +295,7 @@ function set_item_is_best_seller_do(item_id) {
 	
 	$.ajax({
 		type: "POST",
-		url: base_url + "/Admin/set_item_is_best_seller_do/",
+		url: "Admin/set_item_is_best_seller_do/",
 		data:
 		{
 			item_id: item_id,
@@ -325,7 +325,7 @@ function update_item_do() {
 	var form_data = new FormData($("#form_setting_item_detail")[0]);
 	$.ajax({
 		type: "POST",
-		url: base_url + "/Admin/update_item_do/",
+		url: "Admin/update_item_do/",
 		data: form_data,
 		success: function(result) {
 			if (result.err == 0) {
@@ -350,7 +350,7 @@ function tambah_item_do() {
 	var form_data = new FormData($("#form_tambah_item_detail")[0]);
 	$.ajax({
 		type: "POST",
-		url: base_url + "/Admin/create_item_do/",
+		url: "Admin/create_item_do/",
 		data: form_data,
 		success: function(result) {
 			if (result.err == 0) {
@@ -377,7 +377,7 @@ function delete_item_do(item_id) {
 	if (confirm("Hapus barang ini?")) {
 		$.ajax({
 			type: "POST",
-			url: base_url + "/Admin/delete_item_do/",
+			url: "Admin/delete_item_do/",
 			data:
 			{
 				item_id: item_id
@@ -398,7 +398,7 @@ function delete_item_do(item_id) {
 function atur_ongkir_do() {
 	$.ajax({
 		type: "POST",
-		url: base_url + "/Admin/create_ongkir_setting_do/",
+		url: "Admin/create_ongkir_setting_do/",
 		data: $("#form_atur_ongkir_detail").serialize(),
 		success: function(result) {
 			if (result.err == 0) {

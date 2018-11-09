@@ -53,7 +53,7 @@ function load_item_list(search_terms) {
 	if (search_terms == undefined) search_terms = "";
 	$.ajax({
 		type: "POST",
-		url: base_url + "/Customer/load_order_item_list/",
+		url: "Customer/load_order_item_list/",
 		data:
 		{
 			search_terms: search_terms
@@ -112,7 +112,7 @@ function load_item_list(search_terms) {
 function load_item_detail(item_id) {
 	$.ajax({
 		type: "POST",
-		url: base_url + "/Customer/load_order_item_detail/",
+		url: "Customer/load_order_item_detail/",
 		data:
 		{
 			id: item_id
@@ -160,7 +160,7 @@ function load_checkout() {
 		scrollToElement("#order_detail");
 		$.ajax({
 			type: "POST",
-			url: base_url + "/Customer/load_checkout_summary/",
+			url: "Customer/load_checkout_summary/",
 			data:
 			{
 				items: order_items
@@ -262,7 +262,7 @@ function order_do(via) {
 	} else {
 		$.ajax({
 			type: "POST",
-			url: base_url + "/Customer/order_do/",
+			url: "Customer/order_do/",
 			data:
 			{
 				customer_name: customer_name,
