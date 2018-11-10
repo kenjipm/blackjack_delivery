@@ -167,10 +167,12 @@ function load_item_detail(item_id) {
 						}
 
 						reader.readAsDataURL(this.files[0]);
+						
 					}
 				});
 	
 				element.find("[name='btn_save']").on("click", function(){
+					readExifOrientation();
 					update_item_do();
 				});
 	
@@ -208,6 +210,7 @@ function load_tambah_item() {
 	});
 	
 	element.find("[name='btn_save']").on("click", function(){
+		readExifOrientation();
 		tambah_item_do();
 	});
 	
@@ -416,5 +419,14 @@ function atur_ongkir_do() {
 				$("#form_atur_ongkir_detail [name='failure_message']").html("Ongkir gagal di update");
 			}
 		}
+	});
+}
+
+function readExifOrientation() {
+	var curElement = $("#setting_detail [name='item_image']")[0];
+	EXIF.getData(curElement, function() {
+		console.log(curElement);
+		$("[name=item_image_rotation]").val(parseInt(EXIF.getTag(curElement, "Orientation")));
+		console.log(EXIF.getTag(curElement, "Orientation"));
 	});
 }

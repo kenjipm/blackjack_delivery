@@ -22,6 +22,7 @@
 									<img alt="" src="" class="img-fluid rounded pb-2" name="item_image"/>
 									<br/>
 									<span class="btn btn-success" id="btn_upload_photo">Ubah Foto</span>
+									<input type="hidden" name="item_image_rotation"/>
 								</label>
 								<input type="file" class="form-control" id="item_image_file" name="item_image_file" accept="image/*" style="display: none"/>
 							</div>

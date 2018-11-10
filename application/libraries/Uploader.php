@@ -12,7 +12,7 @@ class Uploader {
 		$this->CI->load->config('upload');
 	}
 	
-	public function upload_image_item($upload_folder, $file_element_name)
+	public function upload_image_item($upload_folder, $file_element_name, $rotation=1)
 	{
 		$config_upload_image = $this->CI->config->item('upload_image_item');
 		$config_upload_image['upload_path'] .= $upload_folder."/";
@@ -40,6 +40,24 @@ class Uploader {
 				{
 					$data['error'] = $this->CI->image_lib->display_errors();
 				}
+				else if ($rotation != 1)
+				{
+					$this->CI->image_lib->clear();
+
+					$rotate_config = array();
+					$rotate_config['create_thumb'] = FALSE;
+					$rotate_config['source_image'] = $this->get_thumbnail_file($file_path);
+					
+					switch ($rotation) {
+						case 3: $rotate_config['rotation_angle'] = '180'; break;
+						case 6: $rotate_config['rotation_angle'] = '270'; break;
+						case 8: $rotate_config['rotation_angle'] = '90'; break;
+					}
+					
+					$this->CI->image_lib->initialize($rotate_config);
+					
+					$this->CI->image_lib->rotate();
+				}
 				
 				// compress original image
 				$config_compress_image = $this->CI->config->item('compress_image_item');
@@ -50,6 +68,24 @@ class Uploader {
 				if (!$this->CI->image_lib->resize())
 				{
 					$data['error'] = $this->CI->image_lib->display_errors();
+				}
+				else if ($rotation != 1)
+				{
+					$this->CI->image_lib->clear();
+
+					$rotate_config = array();
+					$rotate_config['create_thumb'] = FALSE;
+					$rotate_config['source_image'] = $file_path;
+					
+					switch ($rotation) {
+						case 3: $rotate_config['rotation_angle'] = '180'; break;
+						case 6: $rotate_config['rotation_angle'] = '270'; break;
+						case 8: $rotate_config['rotation_angle'] = '90'; break;
+					}
+					
+					$this->CI->image_lib->initialize($rotate_config);
+					
+					$this->CI->image_lib->rotate();
 				}
 				
 				return $file_path;

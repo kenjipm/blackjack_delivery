@@ -382,7 +382,12 @@ $config['encryption_key'] = '';
 |
 */
 $config['sess_driver'] = 'files';
-$config['sess_cookie_name'] = 'ci_session';
+if ($_SERVER['SERVER_NAME'] == 'blackjack.deliver.id') {
+	$config['sess_cookie_name'] = 'sbjdlvid';
+} else {
+    $config['sess_cookie_name'] = 'sdlvlocal';
+}
+$config['sess_cookie_name'] = 'sbjdlvid';
 $config['sess_expiration'] = 7200;
 $config['sess_save_path'] = NULL;
 $config['sess_match_ip'] = FALSE;

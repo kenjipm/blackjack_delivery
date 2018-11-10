@@ -1,6 +1,11 @@
 $(document).ready(function(){
-	
+	$("img").attr("onerror", "repImg(this)");
 });
+
+function repImg(el){
+	// Replacing image source
+	el.src = 'img/default_item.jpg';
+}
 
 $(document).bind("ajaxSend", function(){
 	$("#loading").show();

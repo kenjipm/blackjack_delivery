@@ -31,7 +31,7 @@ class Admin extends CI_Controller {
 		
 		// Load Header
         $data_header['css_list'] = array();
-        $data_header['js_list'] = array('Admin/setting');
+        $data_header['js_list'] = array('Admin/setting', 'exif');
 		$this->load->view('header', $data_header);
 		
 		// Load Body
@@ -183,8 +183,9 @@ class Admin extends CI_Controller {
 		
 		if ($item_id) // proses fotonya
 		{
+			$item_image_rotation = $this->input->post('item_image_rotation');
 			$this->load->library('uploader');
-			$file_path = $this->uploader->upload_image_item($item_id, 'item_image_file'); // upload fotonya
+			$file_path = $this->uploader->upload_image_item($item_id, 'item_image_file', $item_image_rotation); // upload fotonya
 			if ($file_path)
 			{
 				$item = array();
@@ -231,8 +232,9 @@ class Admin extends CI_Controller {
 		
 		if ($query_result) // proses fotonya
 		{
+			$item_image_rotation = $this->input->post('item_image_rotation');
 			$this->load->library('uploader');
-			$file_path = $this->uploader->upload_image_item($item['id'], 'item_image_file'); // upload fotonya
+			$file_path = $this->uploader->upload_image_item($item['id'], 'item_image_file', $item_image_rotation); // upload fotonya
 			if ($file_path)
 			{
 				$item = array();
