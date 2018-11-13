@@ -74,13 +74,13 @@
 							<div class="txt-danger" name="failure_message"></div>
 						</div>
 						<nav class="navbar navbar-expand navbar-light bg-success col-6 col-md-8 nopadding">
-							<button type="button" name="btn_save" class="btn btn-success btn-lg w-100" id="btn_save">Simpan</button>
+							<button type="button" name="btn_save" class="btn btn-success btn-lg w-100" id="btn_save"><small>Simpan</small></button>
 						</nav>
 						<nav class="navbar navbar-expand navbar-light bg-semilight col-3 d-sm-block d-md-none nopadding">
-							<button type="button" name="btn_back" class="btn btn-default btn-lg bg-semilight w-100" id="btn_back">Kembali</button>
+							<button type="button" name="btn_back" class="btn btn-default btn-lg bg-semilight w-100" id="btn_back"><small>Kembali</small></button>
 						</nav>
 						<nav class="navbar navbar-expand navbar-light bg-danger col-3 col-md-4 nopadding">
-							<button type="button" name="btn_delete" class="btn btn-danger btn-lg w-100" id="btn_delete">Hapus</button>
+							<button type="button" name="btn_delete" class="btn btn-danger btn-lg w-100" id="btn_delete"><small>Hapus</small></button>
 						</nav>
 					</div>
 				</div>

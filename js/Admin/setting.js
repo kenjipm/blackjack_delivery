@@ -43,9 +43,13 @@ function clear_item_list() {
 function prepare_second_frame() {
 	$("#second_frame").show();
 	scrollToElement("#second_frame");
+	setTimeout(function () {
+		$("#first_frame").addClass("d-none d-md-block");
+	}, 500);
 }
 
 function back_to_first_frame() {
+	$("#first_frame").removeClass("d-none d-md-block");
 	scrollTop();
 	$("#second_frame").hide(500);
 }
@@ -61,7 +65,7 @@ function load_item_list(search_terms) {
 		},
 		success: function(result) {
 			if (result.err == 0) {
-				scrollTop();
+				back_to_first_frame();
 				result.items.forEach(function(item){
 					var template = $("[name='setting_item_template']").html();
 					$(template).attr("item_id", item.id).appendTo("#item_list");
@@ -425,8 +429,6 @@ function atur_ongkir_do() {
 function readExifOrientation() {
 	var curElement = $("#setting_detail [name='item_image']")[0];
 	EXIF.getData(curElement, function() {
-		console.log(curElement);
 		$("[name=item_image_rotation]").val(parseInt(EXIF.getTag(curElement, "Orientation")));
-		console.log(EXIF.getTag(curElement, "Orientation"));
 	});
 }

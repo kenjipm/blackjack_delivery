@@ -1,5 +1,5 @@
 <div class="row justify-content-center mt-5">
-	<div class="col-6 col-lg-3">
+	<div class="col-10 col-sm-6 col-lg-3">
 		<div class="card">
 			<div class="card-body">
 				<form class="form-horizontal" method="post" action="<?=site_url("Admin/Validate")?>">
@@ -23,6 +23,7 @@
 					?>
 					<div class="form-group">
 						<button class="btn btn-primary">Login</button>
+						<a href="<?=site_url()?>" class="btn btn-secondary">Kembali</a>
 					</div>
 				</form>
 			</div>

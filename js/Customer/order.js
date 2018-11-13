@@ -42,9 +42,13 @@ function clear_item_list() {
 function prepare_second_frame() {
 	$("#second_frame").show();
 	scrollToElement("#second_frame");
+	setTimeout(function () {
+		$("#first_frame").addClass("d-none d-md-block");
+	}, 500);
 }
 
 function back_to_first_frame() {
+	$("#first_frame").removeClass("d-none d-md-block");
 	scrollTop();
 	$("#second_frame").hide(500);
 }
