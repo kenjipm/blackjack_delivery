@@ -46,7 +46,9 @@ class Item_model extends CI_Model {
 			}
 		}
 		
-		$query_str .= " ORDER BY updated_date DESC";
+		$query_str .= " ORDER BY
+							(CASE WHEN stock <= 0 THEN 1 ELSE 0 END) ASC,
+							updated_date DESC";
 		
 		$query = $this->db->query($query_str);
 		

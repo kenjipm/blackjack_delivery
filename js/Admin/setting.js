@@ -3,6 +3,7 @@ $(document).ready(function(){
 	bind_btn_search();
 	bind_btn_tambah_item();
 	bind_btn_atur_ongkir();
+	back_to_first_frame();
 	load_item_list();
 });
 
@@ -65,7 +66,6 @@ function load_item_list(search_terms) {
 		},
 		success: function(result) {
 			if (result.err == 0) {
-				back_to_first_frame();
 				result.items.forEach(function(item){
 					var template = $("[name='setting_item_template']").html();
 					$(template).attr("item_id", item.id).appendTo("#item_list");

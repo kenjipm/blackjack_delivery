@@ -384,10 +384,11 @@ $config['encryption_key'] = '';
 $config['sess_driver'] = 'files';
 if ($_SERVER['SERVER_NAME'] == 'blackjack.deliver.id') {
 	$config['sess_cookie_name'] = 'sbjdlvid';
+} else if ($_SERVER['SERVER_NAME'] == 'kalimas.deliver.id') {
+	$config['sess_cookie_name'] = 'sklmsdlvid';
 } else {
     $config['sess_cookie_name'] = 'sdlvlocal';
 }
-$config['sess_cookie_name'] = 'sbjdlvid';
 $config['sess_expiration'] = 7200;
 $config['sess_save_path'] = NULL;
 $config['sess_match_ip'] = FALSE;

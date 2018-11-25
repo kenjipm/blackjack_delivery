@@ -91,11 +91,16 @@ $db['default'] = array(
 	'save_queries' => TRUE
 );
 
-if($_SERVER['SERVER_NAME'] == 'blackjack.deliver.id'){
+if ($_SERVER['SERVER_NAME'] == 'blackjack.deliver.id'){
   $db['default']['hostname'] = 'localhost';
   $db['default']['username'] = 'u5524573_blackjack';
   $db['default']['password'] = 'blowjob69!!';
   $db['default']['database'] = 'u5524573_blackjack';
+} else if ($_SERVER['SERVER_NAME'] == 'kalimas.deliver.id'){
+  $db['default']['hostname'] = 'localhost';
+  $db['default']['username'] = 'u5524573_kalimas';
+  $db['default']['password'] = 'Ka5sFashion';
+  $db['default']['database'] = 'u5524573_kalimas';
 } else {
   $db['default']['hostname'] = 'localhost';
   $db['default']['username'] = 'root';

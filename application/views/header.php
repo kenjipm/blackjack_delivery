@@ -7,7 +7,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimal-ui">
 	<meta name="mobile-web-app-capable" content="yes">
     <title><?=$this->variables_model->get('company_name')->company_name?></title>
-	<link rel="icon" href="<?=base_url('img/favicon.png');?>" type="image/png">
+	<link rel="icon" href="<?=base_url('img/favicon/'.$_SERVER['SERVER_NAME'].'.png');?>" type="image/png">
 	
     <!-- SET CSS -->
     <link rel='stylesheet' href='<?=base_url('css/bootstrap.min.css')?>' type='text/css' media='screen'/>
@@ -27,6 +27,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         //SET CUSTOM JS
         if (isset($js_list)) { foreach ($js_list as $js) {
             ?><script type='text/javascript' src='<?=base_url('js/'.$js.'.js')."?".date("Ymd",time())?>'></script><?php } }
+	?>
+	
+	<?php
+		// google analytics
+		if ($_SERVER['SERVER_NAME'] == 'blackjack.deliver.id')
+		{
+			?>
+			<!-- Global site tag (gtag.js) - Google Analytics -->
+			<script async src="https://www.googletagmanager.com/gtag/js?id=UA-129727756-1"></script>
+			<script>
+			  window.dataLayer = window.dataLayer || [];
+			  function gtag(){dataLayer.push(arguments);}
+			  gtag('js', new Date());
+
+			  gtag('config', 'UA-129727756-1');
+			</script>
+			<?php
+		}
     ?>
     
 	<?php //pre-calculation
